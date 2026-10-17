@@ -13,7 +13,7 @@ uniform float u_crossfadeAlpha;
 uniform vec2 u_resolution;         // Canvas width and height in device pixels
 uniform vec2 u_sourceResolution;   // Source image dimensions (e.g. 700, 394)
 uniform vec4 u_cropRect;           // Crop [x, y, w, h] to strip baked-in borders
-uniform float u_pixelSize;         // Cell size in device pixels
+uniform float u_pixelSize;         // Cell size in device pixels (10.0 matching original canvas)
 uniform float u_spacing;           // Gap spacing ratio (0.35)
 uniform float u_dotScale;          // Dot scale (0.85)
 
@@ -23,14 +23,14 @@ uniform float u_contrast;          // Linear contrast (-100 to 100, default 26)
 uniform float u_brightness;        // Brightness offset (-100 to 100, default -2)
 uniform float u_invert;            // 1.0 = invert (dark mandala subject on light ground)
 uniform float u_bgFloor;           // Noise threshold to clamp to zero (0.02)
-uniform float u_pinnedP2;          // 2nd percentile luma (pinned 0.086)
-uniform float u_pinnedP98;         // 98th percentile luma (pinned 0.741)
+uniform float u_pinnedP2;          // 2nd percentile luma (pinned 0.114)
+uniform float u_pinnedP98;         // 98th percentile luma (pinned 0.733)
 
 // Theming & Colors
-uniform vec3 u_groundColor;        // Warm sand background
-uniform vec3 u_inkColor;           // Deep obsidian ink
+uniform vec3 u_groundColor;        // Warm sand background (#f5ede2)
+uniform vec3 u_inkColor;           // Deep obsidian ink (#261e18)
 uniform int u_colorMode;           // 0: duotone, 1: blended, 2: sampled
-uniform float u_colorMix;          // Mix factor towards ink (0.25)
+uniform float u_colorMix;          // Mix factor towards sample (0.25)
 
 // Dynamic Mouse Warping
 uniform vec2 u_pointer;            // Cursor position in device pixels
@@ -39,7 +39,7 @@ uniform int u_warpMode;            // 0: twist, 1: lean, 2: scatter, 3: none
 uniform float u_warpStrength;      // Warp magnitude (9.0)
 uniform float u_time;              // Elapsed time in seconds
 
-// Exact 8x8 Bayer Ordered Threshold Function (eliminates texture lookup seam artifacts)
+// Exact 8x8 Bayer Ordered Threshold Function
 float getBayer8(vec2 p) {
   int x = int(mod(p.x, 8.0));
   int y = int(mod(p.y, 8.0));
@@ -112,7 +112,7 @@ void main() {
   vec2 totalCells = u_resolution / u_pixelSize;
   vec2 uv = vec2(sampleCellCoord.x / totalCells.x, 1.0 - (sampleCellCoord.y / totalCells.y));
 
-  // Aspect-cover texture mapping
+  // Aspect-cover texture mapping (exact match to 2D canvas drawImage cover)
   float targetAspect = u_resolution.x / u_resolution.y;
   float srcAspect = u_sourceResolution.x / max(1.0, u_sourceResolution.y);
   vec2 sampleUV = uv;
@@ -141,7 +141,7 @@ void main() {
   float pRange = max(0.01, u_pinnedP98 - u_pinnedP2);
   float norm = clamp((luma - u_pinnedP2) / pRange, 0.0, 1.0);
 
-  // Brightness and contrast adjustment
+  // Brightness and contrast adjustment (exact match to original 2D canvas)
   norm = norm + (u_brightness / 100.0);
   float cFactor = 1.0 + (u_contrast / 50.0);
   norm = clamp(0.5 + (norm - 0.5) * cFactor, 0.0, 1.0);
@@ -151,8 +151,8 @@ void main() {
     norm = 1.0 - norm;
   }
 
-  // Noise floor suppression
-  if (norm < u_bgFloor) {
+  // Noise floor suppression & threshold
+  if (norm < u_bgFloor || norm <= 0.001) {
     norm = 0.0;
   }
 
@@ -174,14 +174,15 @@ void main() {
   float rad = max(0.5, maxRadius * sqrt(tone));
 
   float dotAlpha = 0.0;
-  if (level > 0.0) {
-    dotAlpha = smoothstep(rad + 0.75, rad - 0.75, distToCenter);
+  if (level > 0.0 && norm > 0.001) {
+    dotAlpha = smoothstep(rad + 0.5, rad - 0.5, distToCenter);
   }
 
-  // Color blending mode
+  // Color blending: original was ink * (1 - mixRatio) + raw * mixRatio
+  // This yields deep rich obsidian ink with a subtle 25% sand accent
   vec3 dotColor = u_inkColor;
   if (u_colorMode == 1) { // Blended
-    dotColor = mix(rawColor.rgb, u_inkColor, clamp(u_colorMix, 0.0, 1.0));
+    dotColor = mix(u_inkColor, rawColor.rgb, clamp(u_colorMix, 0.0, 1.0));
   } else if (u_colorMode == 2) { // Sampled
     dotColor = rawColor.rgb;
   }

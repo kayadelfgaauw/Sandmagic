@@ -26,9 +26,9 @@ export class DitherEngine {
     this.groundColor = options.groundColor ?? '#f5ede2';
     this.inkColor = options.inkColor ?? '#261e18';
 
-    // Calibrated pinned percentiles from sand sequence (eliminates flicker completely)
-    this.pinnedP2 = 0.0863;
-    this.pinnedP98 = 0.7412;
+    // Calibrated pinned percentiles from sand sequence (exact match to original 2D canvas)
+    this.pinnedP2 = 0.114;
+    this.pinnedP98 = 0.733;
     this.isPinned = true;
 
     // Pointer warp state
@@ -272,9 +272,8 @@ export class DitherEngine {
     // Border crop
     gl.uniform4f(this.uniforms.u_cropRect, 0.0, 0.0, 1.0, 1.0);
 
-    // Grid sizing scaled by devicePixelRatio for consistent crisp dots
-    const dpr = window.devicePixelRatio || 1;
-    gl.uniform1f(this.uniforms.u_pixelSize, Math.max(4.0, this.pixelSize * dpr));
+    // Grid sizing matching original 2D canvas pixel density
+    gl.uniform1f(this.uniforms.u_pixelSize, Math.max(4.0, this.pixelSize));
     gl.uniform1f(this.uniforms.u_spacing, this.spacing);
     gl.uniform1f(this.uniforms.u_dotScale, this.dotScale);
     gl.uniform1f(this.uniforms.u_levels, Math.max(2.0, this.levels));

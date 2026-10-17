@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SANDMAGIC — Ephemeral Land Art by Remko Delfgaauw</title>
+  <meta name="description" content="Art that disappears but doesn’t stay silent. Monumental beach drawings, crop circles, and living kinetic animations by 2-time Guinness World Record artist Remko Delfgaauw.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand">
+      <span class="brand-glyph">✦</span>
+      <span class="brand-name">SANDMAGIC</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html" style="color: var(--ink-primary); font-weight: 600;">Home</a>
+      <a href="projects.html">Works (35)</a>
+      <a href="about.html">The Artist</a>
+      <a href="contact.html">Contact</a>
+      <a href="guide.html" class="nav-guide-link">Guide</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="projects.html" class="pill-btn primary">Explore Archive</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Living Bayer Dither Canvas -->
+  <section id="hero" class="hero-section">
+    <!-- Dither Canvas (Pinned Settings: 11 FPS, Rec. 709, Invert=True, Pinned Auto-levels) -->
+    <canvas id="ditherCanvas"></canvas>
+    <div class="hero-scrim"></div>
+
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="live-dot"></span>
+        <span>Zeeland Coastline · Rec. 709 Living Dither</span>
+      </div>
+
+      <h1 class="hero-title">
+        ART THAT DISAPPEARS<br>
+        BUT DOESN’T STAY SILENT.
+      </h1>
+
+      <p class="hero-description">
+        Monumental beach geometry, crop installations, and living kinetic animations etched directly into the earth by Dutch artist <strong>Remko Delfgaauw</strong>. Destined to be surrendered to the rising tide.
+      </p>
+
+      <div class="hero-actions">
+        <a href="projects.html" class="pill-btn primary large">Explore All 35 Works</a>
+        <a href="about.html" class="pill-btn outline large">Meet the Artist</a>
+      </div>
+
+      <div class="hero-footer-status">
+        <div class="status-item">
+          <span class="status-label">Guinness World Records</span>
+          <span class="status-val">2× Certified Earthworks</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Primary Canvas</span>
+          <span class="status-val">Brouwersdam & North Sea Coast</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Lifespan</span>
+          <span class="status-val">4 to 6 Hours (Until High Tide)</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="#philosophy" class="scroll-cue" aria-label="Scroll to explore">
+      <span class="scroll-mouse">
+        <span class="scroll-wheel"></span>
+      </span>
+      <span class="scroll-text">Scroll to Immerse</span>
+    </a>
+  </section>
+
+  <!-- Manifesto / Artistic Philosophy -->
+  <section id="philosophy" class="section philosophy-section">
+    <div class="container">
+      <div class="section-label">Artistic Philosophy</div>
+
+      <div class="manifesto-grid">
+        <div class="manifesto-lead">
+          <h2 class="quote-title">
+            "Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea."
+          </h2>
+          <p class="lead-text">
+            Sandmagic exists at the intersection of monumental sculpture, celestial geometry, and absolute impermanence. We do not quarry stone or pour concrete. Our medium is the damp sand revealed between low and high tide.
+          </p>
+          <p class="body-text">
+            Every creation is born in stillness, carved by hand with meticulous mathematical precision, celebrated at its aerial zenith, and returned unconditionally to the ocean. What remains is not physical debris, but an indelible impression on the human psyche.
+          </p>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-number">530<span class="metric-unit">m</span></span>
+            <span class="metric-title">Record Diameter</span>
+            <p class="metric-desc">Project Atlas: Guinness World Record for the largest crop circle installation in human history.</p>
+          </div>
+
+          <div class="metric-card">
+            <span class="metric-number">2<span class="metric-unit">×</span></span>
+            <span class="metric-title">Guinness Titles</span>
+            <p class="metric-desc">Certified world records in monumental land art and synchronized living kinetic animation.</p>
+          </div>
+
+          <div class="metric-card">
+            <span class="metric-number">35</span>
+            <span class="metric-title">Archived Works</span>
+            <p class="metric-desc">Cataloged sand drawings, crop formations, and living animations created between 1997 and 2026.</p>
+          </div>
+
+          <div class="metric-card highlight">
+            <span class="metric-number">0<span class="metric-unit">%</span></span>
+            <span class="metric-title">Permanent Footprint</span>
+            <p class="metric-desc">100% natural, biodegradable execution. The high tide leaves the shore untouched.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Landmark Works -->
+  <section id="works" class="section works-section">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <div class="section-label">Selected Landmark Works</div>
+          <h2 class="section-heading">Monuments of the Ebb & Flow</h2>
+        </div>
+        <div>
+          <p class="section-header-desc">
+            Explore a curated selection of Remko Delfgaauw's landmark installations, or browse the entire 35-piece archive.
+          </p>
+          <a href="projects.html" class="pill-btn outline" style="margin-top: 1rem;">View All 35 Works →</a>
+        </div>
+      </div>
+
+      <div class="works-showcase">
+
+        <!-- Work 01: The Brouwersdam Sacred Mandala -->
+        <article class="work-card featured">
+          <div class="work-visual live-visual">
+            <div class="live-tag">Interactive Dither Exhibit</div>
+            <div class="work-caption-box">
+              <span class="work-year">2024–2026</span>
+              <h3 class="work-title">The Sacred Mandala of Brouwersdam</h3>
+              <p class="work-desc">
+                Over 140 meters of concentric geometries etched at the Dutch shoreline. Reconstructed above in real-time Rec. 709 Bayer ordered dither from aerial drone footage.
+              </p>
+              <div class="work-specs">
+                <span>Scale: 140m</span>
+                <span>Tide Window: 5.2h</span>
+                <span>Location: Brouwersdam, Zeeland</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Work 02: Firehorse (Chinese Zodiac 2026) -->
+        <article class="work-card">
+          <div class="work-visual">
+            <img src="assets/projects/firehorse_1.webp" alt="Firehorse Beach Drawing by Remko Delfgaauw" loading="lazy" class="work-img">
+            <div class="work-overlay">
+              <span class="overlay-tag">Year of the Fire Horse</span>
+            </div>
+          </div>
+          <div class="work-body">
+            <span class="work-year">2026 Coastal Installation</span>
+            <h3 class="work-title">The Fire Horse</h3>
+            <p class="work-desc">
+              "2026 is not just another year, it is the year of the Fire Horse. It storms, it challenges, and sets in motion everything that has stood still for too long." Carved into the Zeeland sand, welcoming the lunar new year with raw kinetic courage.
+            </p>
+            <div class="work-specs">
+              <span>Scale: 120m × 80m</span>
+              <span>Coast: Brouwersdam, NL</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Work 03: Project Atlas (Guinness World Record) -->
+        <article class="work-card">
+          <div class="work-visual">
+            <img src="assets/projects/atlas-2009_1.jpg" alt="Project Atlas Guinness World Record Land Art" loading="lazy" class="work-img">
+            <div class="work-overlay">
+              <span class="overlay-tag">Guinness World Record</span>
+            </div>
+          </div>
+          <div class="work-body">
+            <span class="work-year">Guinness Record Certified · 2009</span>
+            <h3 class="work-title">Project Atlas</h3>
+            <p class="work-desc">
+              The largest earthwork in recorded human history. Spanning an astonishing 530 meters, Remko Delfgaauw orchestrated the team that etched this colossal geometric titan into agricultural terrain in Wilhelminadorp.
+            </p>
+            <div class="work-specs">
+              <span>Scale: 530m Diameter</span>
+              <span>Global Award: Guinness Certified</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Work 04: Project Act As One -->
+        <article class="work-card">
+          <div class="work-visual">
+            <img src="assets/projects/act-as-one-2021_1.webp" alt="Project Act As One Living Kinetic Animation" loading="lazy" class="work-img">
+            <div class="work-overlay">
+              <span class="overlay-tag">Living Animation</span>
+            </div>
+          </div>
+          <div class="work-body">
+            <span class="work-year">Guinness Record Certified · 2021</span>
+            <h3 class="work-title">Project Act As One</h3>
+            <p class="work-desc">
+              A monumental living kinetic animation where human participants and drone cinematography combined into synchronized shifting geometry, securing Remko's second Guinness World Record.
+            </p>
+            <div class="work-specs">
+              <span>Type: Living Animation</span>
+              <span>Location: Zierikzee</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Work 05: The Breakwater Horizon -->
+        <article class="work-card">
+          <div class="work-visual">
+            <img src="assets/images/sand_drawing_1.webp" alt="Aerial coastal view of Sandmagic beach drawing" loading="lazy" class="work-img">
+            <div class="work-overlay">
+              <span class="overlay-tag">Zeeland Coastline</span>
+            </div>
+          </div>
+          <div class="work-body">
+            <span class="work-year">Tidal Interplay</span>
+            <h3 class="work-title">The Breakwater Horizon</h3>
+            <p class="work-desc">
+              Captured along the historic timber breakwaters of Zeeland. The sun glimmers off the North Sea as the tide advances, minutes before the drawing dissolves back into pure sand.
+            </p>
+            <div class="work-specs">
+              <span>Documentation: 8K Aerial Drone</span>
+              <span>Outcome: Complete Erasure</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- The Ephemeral Process -->
+  <section id="process" class="section process-section">
+    <div class="container">
+      <div class="section-label">The Ephemeral Ritual</div>
+      <h2 class="section-heading">From Lunar Tide to Pure Sky</h2>
+
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-badge">Phase 01</div>
+          <h3 class="step-title">Tidal Cartography</h3>
+          <p class="step-text">
+            Studying lunar tide charts to calculate the exact window of opportunity (typically 4.5 to 6 hours between high tides) and mapping the firmest damp sand.
+          </p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">Phase 02</div>
+          <h3 class="step-title">Sacred Geometry</h3>
+          <p class="step-text">
+            Translating mathematical designs into physical coordinate stakes, ropes, and compass lines spanning hundreds of meters across the beach.
+          </p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">Phase 03</div>
+          <h3 class="step-title">Physical Raking</h3>
+          <p class="step-text">
+            Hand-drawn with specialized rakes. Contrast is achieved through the texture of wet subsurface sand against dry surface crystals.
+          </p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">Phase 04</div>
+          <h3 class="step-title">Aerial Zenith</h3>
+          <p class="step-text">
+            At peak tide delay and optimal solar angle, cine-drones take flight to capture the finished masterwork from altitudes up to 500 meters.
+          </p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">Phase 05</div>
+          <h3 class="step-title">Oceanic Return</h3>
+          <p class="step-text">
+            The North Sea tide sweeps in. Within twenty minutes, the entire monumental drawing dissolves. The canvas is returned pristine, clean, and silent.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artist Spotlight Section -->
+  <section class="section artist-section">
+    <div class="container">
+      <div class="artist-layout">
+        <div class="artist-visual">
+          <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw and Sandmagic collective on the beach" loading="lazy" class="artist-photo">
+          <div class="artist-caption">
+            <span>Remko Delfgaauw (center) with collaborators on the Zeeland shore</span>
+          </div>
+        </div>
+
+        <div class="artist-bio">
+          <div class="section-label">The Artist</div>
+          <h2 class="section-heading">Remko Delfgaauw</h2>
+          <div class="artist-creds">
+            <span>Land Artist</span>
+            <span class="cred-dot">·</span>
+            <span>2× Guinness World Record Holder</span>
+            <span class="cred-dot">·</span>
+            <span>Founder of Sandmagic</span>
+          </div>
+
+          <p class="lead-bio">
+            "When you draw on the sand knowing the sea will claim it within hours, ego falls away. What matters is the purity of the gesture and the presence of the moment."
+          </p>
+
+          <p class="bio-text">
+            After pioneering monumental crop circles in 1997 and orchestrating the historic 530-meter <strong>Project Atlas</strong> in 2009, Remko expanded his craft onto the shifting sands of the Dutch coast. In 2021, he achieved his second Guinness World Record for <strong>Project Act As One</strong>.
+          </p>
+
+          <div style="margin-top: 2rem;">
+            <a href="about.html" class="pill-btn primary">Read Full Biography & Story →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artist Dialogue / Contact Callout -->
+  <section class="section" style="background: var(--bg-surface); border-top: 1px solid var(--border-glass);">
+    <div class="container" style="max-width: 820px; text-align: center;">
+      <div class="section-label" style="justify-content: center;">Dialogue & Commissions</div>
+      <h2 class="section-heading">Initiate a Conversation with the Artist</h2>
+      <p style="font-size: 1.05rem; line-height: 1.7; color: var(--ink-muted); margin-bottom: 2.2rem;">
+        For bespoke coastal installations, collaborative retreats on the beach, museum exhibitions, or archival print inquiries, Remko welcomes direct dialogue.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
+        <a href="contact.html" class="pill-btn primary large">Contact Studio</a>
+        <a href="mailto:remko.delfgaauw@gmail.com" class="pill-btn outline large">remko.delfgaauw@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-glyph">✦</span>
+          <span class="brand-name">SANDMAGIC</span>
+        </div>
+        <p class="footer-tagline">
+          Art that disappears but doesn’t stay silent.<br>
+          Monumental ephemeral land art by Remko Delfgaauw.
+        </p>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-heading">Navigation</span>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Selected Works (35)</a>
+        <a href="about.html">The Artist</a>
+        <a href="contact.html">Contact Studio</a>
+        <a href="guide.html">Architectural Guide</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-heading">Landmark Projects</span>
+        <a href="projects.html">Brouwersdam Mandala</a>
+        <a href="projects.html">The Fire Horse 2026</a>
+        <a href="projects.html">Project Atlas (Guinness Record)</a>
+        <a href="projects.html">Project Act As One (Guinness Record)</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-heading">Studio Inquiries</span>
+        <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
+        <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
+        <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+        <span class="footer-address">Zierikzee & Brouwersdam, Zeeland, NL</span>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2026 Sandmagic & Remko Delfgaauw. All rights reserved.</span>
+      <span class="built-with">Built with Rec. 709 Bayer Ordered Dither Engine</span>
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

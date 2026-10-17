@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architectural Guide — Sandmagic Engineering Dossier</title>
+  <meta name="description" content="Technical documentation detailing the Rec. 709 luma calibration, pinned histogram percentiles, recursive Bayer quantization, and coordinate warp dynamics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      overflow-y: auto !important;
+      background-color: var(--bg-ground);
+      color: var(--ink-primary);
+    }
+    .guide-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+    }
+    .guide-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: var(--ink-muted);
+      margin-bottom: 2rem;
+      transition: color 0.2s ease;
+    }
+    .guide-back:hover {
+      color: var(--accent-color);
+    }
+    .guide-header {
+      border-bottom: 1px solid var(--border-glass);
+      padding-bottom: 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .guide-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      background: var(--border-glass);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .guide-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .guide-lead {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: var(--ink-muted);
+      max-width: 720px;
+    }
+    .guide-section {
+      margin-bottom: 4rem;
+    }
+    .guide-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      color: var(--ink-primary);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .sec-num {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent-color);
+    }
+    .guide-section p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-muted);
+      margin-bottom: 1.2rem;
+    }
+    .code-block {
+      background: rgba(38, 30, 24, 0.05);
+      border: 1px solid var(--border-glass);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--ink-primary);
+    }
+    .math-callout {
+      border-left: 3px solid var(--accent-color);
+      padding: 1rem 1.4rem;
+      background: rgba(140, 66, 39, 0.04);
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .math-callout strong {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-color);
+      margin-bottom: 0.4rem;
+    }
+    .formula {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink-primary);
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+    .spec-table th, .spec-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-glass);
+      text-align: left;
+    }
+    .spec-table th {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-subtle);
+    }
+    .spec-table td:first-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="guide-page">
+    <a href="../index.html" class="guide-back">← Return to Sandmagic Experience</a>
+
+    <header class="guide-header">
+      <span class="guide-badge">Architecture & Engineering</span>
+      <h1 class="guide-title">Bayer Ordered Dither Engine: Technical Dossier</h1>
+      <p class="guide-lead">
+        A technical breakdown of the mathematical calibration, Rec. 709 luma quantization, coordinate warp dynamics, and batch rendering pipeline powering the Sandmagic living web experience.
+      </p>
+    </header>
+
+    <article class="guide-content">
+
+      <!-- Section 1 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">01</span> Subject Contrast & The Invert Flag</h2>
+        <p>
+          The most prevalent pitfall in digital halftoning and ordered dither is failing to identify the subject's inherent contrast relative to its ground. In the case of Remko Delfgaauw's sand drawings on the Dutch coast, the subject consists of dark raked sand lines etched into light reflective beach sand.
+        </p>
+        <p>
+          Without inversion, high luma regions (the empty beach sand) generate maximum dot density, causing the background to flood with dots while leaving the artwork empty. Setting <code>invert = true</code> maps high luma to zero dot density, ensuring the quantized ink particles concentrate exclusively on the raked grooves and human figures.
+        </p>
+        <div class="math-callout">
+          <strong>Luma Inversion Logic:</strong>
+          <span class="formula">if (invert) L_norm = 1.0 - L_norm;</span>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">02</span> Frame Extraction & Boundary Cleaning</h2>
+        <p>
+          The original footage (<code>gemini_generated_video_4885ad27.mp4</code>) contains an AI-generated parchment border along its exterior margins. Extracting the frames without cropping results in an artificial border dithering into a rigid rectangle in the center of the viewport.
+        </p>
+        <p>
+          We apply an 11 FPS extraction rate and an 8% geometric margin crop:
+        </p>
+        <div class="code-block">
+ffmpeg -i gemini_generated_video_4885ad27.mp4 \
+  -vf "fps=11,crop=iw*0.84:ih*0.84:iw*0.08:ih*0.08,scale=1400:-2" \
+  frames/%03d.png
+        </div>
+        <p>
+          <strong>Noise Floor Suppression:</strong> Beach sand naturally carries compression grain and subtle footprints. We apply a normalized floor clamp (<code>bgFloor = 0.02</code>). Any pixel with tone below this threshold is snapped cleanly to zero, completely eliminating codec noise haze.
+        </p>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">03</span> Rec. 709 Luma & Pinned Auto-Leveling</h2>
+        <p>
+          Luminance is calculated using standard HDTV ITU-R Recommendation BT.709-6 spectral weighting coefficients:
+        </p>
+        <div class="math-callout">
+          <strong>Rec. 709 Luma Formula:</strong>
+          <span class="formula">Luma = 0.2126 × R + 0.7152 × G + 0.0722 × B</span>
+        </div>
+        <p>
+          <strong>The Pinned Auto-Levels Principle:</strong> Dynamic per-frame contrast expansion causes the dot density to visibly flicker or pulse as video frames alternate. To eliminate this pulsation, the engine computes the 2nd percentile (\(P_2\)) and 98th percentile (\(P_{98}\)) from the luma histogram on sequence initialization and <em>pins</em> those reference levels across all subsequent frames.
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">04</span> Recursive 8×8 Bayer Ordered Quantization</h2>
+        <p>
+          Unlike Floyd–Steinberg error diffusion which produces organic, wandering stipple clusters, ordered dither relies on spatial threshold matrices that yield a crisp, architectural grid.
+        </p>
+        <p>
+          The 8×8 Bayer matrix is synthesized recursively from a fundamental \(2 \times 2\) seed:
+        </p>
+        <div class="code-block">
+M_2 = [[0, 2], [3, 1]]
+
+M_{2n} = [
+  [4 * M_n,         4 * M_n + 2 * U_n],
+  [4 * M_n + 3 * U_n, 4 * M_n + 1 * U_n]
+]
+        </div>
+        <p>
+          Threshold values are normalized by \(1 / 64\) and offset by \(+0.5\). Quantization maps the adjusted tone into \(N=4\) discrete levels, scaling circle radii to preserve visual airiness.
+        </p>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">05</span> High-Performance Path Bucketing</h2>
+        <p>
+          Rendering thousands of individual circles per frame with unique <code>ctx.fillStyle</code> assignments causes massive JavaScript bridge overhead and drops framerates below 20 FPS.
+        </p>
+        <p>
+          Our engine groups cells into discrete level and color buckets. In Duotone mode, all cells sharing tone level \(k\) are batched into a single <code>beginPath()</code> and drawn with a single <code>fill()</code> call. This reduces draw calls from 10,000+ to under 15 calls per frame, effortlessly sustaining 60+ FPS.
+        </p>
+      </section>
+
+      <!-- Section 6 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">06</span> Sampling Coordinate Warping</h2>
+        <p>
+          Instead of displacing drawn pixels after rendering, pointer interaction displaces the <strong>sampling coordinates</strong> when reading from the downscaled offscreen buffer. Because this occurs during array lookup, the interaction adds zero extra draw passes.
+        </p>
+        <p>
+          We employ a <strong>Rotational Twist</strong> across a 60% viewport radius with cubic smoothstep falloff (\(s^2(3 - 2s)\)), creating a field effect that responds organically to the radial geometry of the mandala without artifacting.
+        </p>
+      </section>
+
+      <!-- Section 7 -->
+      <section class="guide-section">
+        <h2><span class="sec-num">07</span> Production Pinned Configuration</h2>
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Value</th>
+              <th>Architectural Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>pixelSize</td>
+              <td>10 px</td>
+              <td>Balanced grid density allowing subject to read clearly.</td>
+            </tr>
+            <tr>
+              <td>spacing</td>
+              <td>0.35</td>
+              <td>Maintains airy inter-cell separation and visual delicacy.</td>
+            </tr>
+            <tr>
+              <td>dotScale</td>
+              <td>0.85</td>
+              <td>Prevents neighboring dots from congealing into solid mass.</td>
+            </tr>
+            <tr>
+              <td>levels</td>
+              <td>4</td>
+              <td>Smooth tonal gradation without muddiness.</td>
+            </tr>
+            <tr>
+              <td>contrast</td>
+              <td>26</td>
+              <td>Enhanced line definition of sand trenches.</td>
+            </tr>
+            <tr>
+              <td>brightness</td>
+              <td>-2</td>
+              <td>Compensates for beach glare.</td>
+            </tr>
+            <tr>
+              <td>colorMode</td>
+              <td>Blended (0.25)</td>
+              <td>Preserves atmospheric hue while locking to brand ink.</td>
+            </tr>
+            <tr>
+              <td>warpMode</td>
+              <td>Twist</td>
+              <td>Radial vortex field aligned with mandala geometry.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </article>
+
+    <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center;">
+      <a href="../index.html" class="pill-btn primary">Back to Live Sandmagic Experience</a>
+    </footer>
+  </div>
+
+</body>
+</html>

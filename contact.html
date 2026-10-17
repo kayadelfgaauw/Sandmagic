@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Studio — Sandmagic by Remko Delfgaauw</title>
+  <meta name="description" content="Get in touch with Dutch land artist Remko Delfgaauw for exhibitions, coastal commissions, collaborations, or private inquiries.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      overflow-y: auto !important;
+    }
+    .contact-header {
+      padding: 8rem 0 3.5rem;
+      background: linear-gradient(180deg, var(--bg-ground) 0%, #efe5d8 100%);
+      border-bottom: 1px solid var(--border-glass);
+    }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      padding: 5rem 0 7rem;
+    }
+    .contact-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 2.8rem 2.4rem;
+    }
+    .channel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      margin: 2.5rem 0;
+    }
+    .channel-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .channel-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-color);
+    }
+    .channel-val {
+      font-size: 1.1rem;
+      color: var(--ink-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .channel-val:hover {
+      color: var(--accent-color);
+    }
+    .studio-location-box {
+      border-top: 1px solid var(--border-glass);
+      padding-top: 1.8rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <a href="index.html" class="brand">
+      <span class="brand-glyph">✦</span>
+      <span class="brand-name">SANDMAGIC</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Works</a>
+      <a href="about.html">The Artist</a>
+      <a href="contact.html" style="color: var(--ink-primary); font-weight: 600;">Contact</a>
+      <a href="guide.html" class="nav-guide-link">Guide</a>
+    </nav>
+
+    <div class="header-cta-group">
+      <a href="projects.html" class="pill-btn primary">Explore Works</a>
+    </div>
+  </header>
+
+  <!-- Contact Header -->
+  <section class="contact-header">
+    <div class="container">
+      <div class="section-label">Studio & Dialogue</div>
+      <h1 class="section-heading">Connect with Remko Delfgaauw</h1>
+      <p class="section-subheading">
+        For artistic collaborations, custom coastal commissions, exhibitions, or press inquiries, reach out directly to the studio.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Body -->
+  <main class="container">
+    <div class="contact-layout">
+
+      <!-- Direct Contact Channels -->
+      <div class="contact-channels">
+        <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--ink-primary); margin-bottom: 1rem;">
+          Direct Studio Dialogue
+        </h2>
+        <p style="font-size: 1rem; line-height: 1.7; color: var(--ink-muted); margin-bottom: 2rem;">
+          Whether you represent a museum, an architectural firm, a creative collective, or wish to commission an ephemeral installation on the Dutch or international shores, Remko welcomes thoughtful conversations.
+        </p>
+
+        <div class="channel-list">
+          <div class="channel-item">
+            <span class="channel-label">Email Direct</span>
+            <a href="mailto:remko.delfgaauw@gmail.com" class="channel-val">remko.delfgaauw@gmail.com</a>
+          </div>
+
+          <div class="channel-item">
+            <span class="channel-label">Telephone</span>
+            <a href="tel:+31651267457" class="channel-val">+31 (0)6 51 267 457</a>
+          </div>
+
+          <div class="channel-item">
+            <span class="channel-label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer" class="channel-val">linkedin.com/in/remko-delfgaauw</a>
+          </div>
+        </div>
+
+        <div class="studio-location-box">
+          <span class="channel-label">Studio & Primary Coastline</span>
+          <p style="font-size: 0.95rem; color: var(--ink-muted); line-height: 1.6; margin-top: 0.4rem;">
+            Zierikzee & The Brouwersdam Shoreline<br>
+            Zeeland, The Netherlands
+          </p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-card">
+        <h3 class="form-title">Send a Message</h3>
+        <p class="form-subtitle">Direct message to Remko's desk</p>
+
+        <form class="commission-form" onsubmit="event.preventDefault(); window.location.href='mailto:remko.delfgaauw@gmail.com?subject=Sandmagic%20Message%20from%20'+encodeURIComponent(document.getElementById('cName').value)+'&body='+encodeURIComponent('Name: '+document.getElementById('cName').value+'\nEmail: '+document.getElementById('cEmail').value+'\nSubject: '+document.getElementById('cSubject').value+'\nMessage:\n'+document.getElementById('cMsg').value);">
+          <div class="form-group">
+            <label for="cName">Your Name</label>
+            <input type="text" id="cName" placeholder="e.g. Maya Lindqvist" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cEmail">Email Address</label>
+            <input type="email" id="cEmail" placeholder="maya@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cSubject">Topic of Interest</label>
+            <input type="text" id="cSubject" placeholder="e.g. Coastal Installation / Exhibition / Print Inquiry">
+          </div>
+
+          <div class="form-group">
+            <label for="cMsg">Your Message</label>
+            <textarea id="cMsg" rows="5" placeholder="Share your thoughts or proposal…" required></textarea>
+          </div>
+
+          <button type="submit" class="pill-btn primary full-width">Send Message</button>
+          <span class="form-footnote">Messages are received directly by Remko Delfgaauw.</span>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-glyph">✦</span>
+          <span class="brand-name">SANDMAGIC</span>
+        </div>
+        <p class="footer-tagline">
+          Art that disappears but doesn’t stay silent.<br>
+          Monumental ephemeral land art by Remko Delfgaauw.
+        </p>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-heading">Navigation</span>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Selected Works (35)</a>
+        <a href="about.html">The Artist</a>
+        <a href="contact.html">Contact Studio</a>
+        <a href="guide.html">Architectural Guide</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-heading">Landmark Projects</span>
+        <a href="projects.html">The Fire Horse 2026</a>
+        <a href="projects.html">Project Atlas (530m)</a>
+        <a href="projects.html">Project Act As One (2021)</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <span class="footer-heading">Direct Contact</span>
+        <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
+        <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
+        <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+        <span class="footer-address">Zierikzee & Brouwersdam, Zeeland, NL</span>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2026 Sandmagic & Remko Delfgaauw. All rights reserved.</span>
+      <span class="built-with">Ephemera Etched in the Tides</span>
+    </div>
+  </footer>
+
+</body>
+</html>

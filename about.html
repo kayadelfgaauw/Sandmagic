@@ -3,95 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Artist — Remko Delfgaauw & Sandmagic</title>
-  <meta name="description" content="Biography and philosophy of Dutch land artist Remko Delfgaauw, 2-time Guinness World Record holder and creator of monumental ephemeral earthworks.">
+  <title>The Artist — Remko Delfgaauw · SANDMAGIC</title>
+  <meta name="description" content="Biography and artistic trajectory of Dutch land artist Remko Delfgaauw, 2-time Guinness World Record holder and creator of monumental ephemeral earthworks.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      overflow-y: auto !important;
+    .artist-chronology {
+      padding: 6rem 0 10rem;
     }
-    .about-header {
-      padding: 8rem 0 4rem;
-      background: linear-gradient(180deg, var(--bg-ground) 0%, #ede2d3 100%);
+    .chrono-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 380px;
+      gap: 4vw;
+      align-items: center;
+      padding: 4rem 0;
       border-bottom: 1px solid var(--border-glass);
     }
-    .about-lead-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      padding: 5rem 0;
-    }
-    .about-img-box {
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 20px 45px rgba(38, 30, 24, 0.1);
-      position: relative;
-    }
-    .about-img-box img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .about-prose {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--ink-muted);
-    }
-    .about-prose p {
-      margin-bottom: 1.5rem;
-    }
-    .timeline-journey {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-      padding: 4rem 0 6rem;
+    .chrono-row:first-child {
       border-top: 1px solid var(--border-glass);
     }
-    .journey-item {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 3rem;
-      align-items: baseline;
-    }
-    .journey-year {
+    .chrono-year {
       font-family: var(--font-serif);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent-gold);
+      font-size: clamp(2rem, 3.2vw, 3.2rem);
+      font-weight: 400;
+      color: var(--accent-color);
       line-height: 1;
     }
-    .journey-content h3 {
+    .chrono-title {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
+      font-size: 1.65rem;
+      font-weight: 500;
       color: var(--ink-primary);
       margin-bottom: 0.6rem;
     }
-    .journey-content p {
-      font-size: 0.95rem;
-      line-height: 1.65;
+    .chrono-whisper {
+      font-family: var(--font-editorial);
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.55;
       color: var(--ink-muted);
+      max-width: 580px;
     }
-    .record-badge {
+    .chrono-badge {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
       background: var(--ink-primary);
       color: var(--bg-ground);
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
-      margin-left: 0.6rem;
-      vertical-align: middle;
-      letter-spacing: 0.05em;
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 0.75rem;
+    }
+    .chrono-plate {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #18130f;
+    }
+    .chrono-plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1s var(--ease-museum);
+    }
+    .chrono-row:hover .chrono-plate img {
+      transform: scale(1.04);
+    }
+    @media (max-width: 980px) {
+      .chrono-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Site Header -->
+  <!-- Minimalist Museum Header -->
   <header class="site-header">
     <a href="index.html" class="brand">
       <span class="brand-glyph">✦</span>
@@ -99,166 +91,197 @@
     </a>
 
     <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Works</a>
-      <a href="about.html" style="color: var(--ink-primary); font-weight: 600;">The Artist</a>
-      <a href="contact.html">Contact</a>
-      <a href="guide.html" class="nav-guide-link">Guide</a>
+      <a href="index.html">Sanctuary</a>
+      <a href="projects.html">Exhibition</a>
+      <a href="about.html" class="active">The Artist</a>
+      <a href="contact.html">Dialogue</a>
     </nav>
 
-    <div class="header-cta-group">
-      <a href="contact.html" class="pill-btn primary">Inquire</a>
+    <div class="header-meta">
+      <span>Remko Delfgaauw · Monograph</span>
     </div>
   </header>
 
-  <!-- About Header -->
-  <section class="about-header">
+  <!-- Artist Header -->
+  <section class="exhibition-header">
+    <div class="container-wide">
+      <div class="exhibition-header-top">
+        <div>
+          <div class="section-label">The Artist · Born in Zeeland</div>
+          <h1 class="section-heading" style="margin-bottom: 0;">Remko Delfgaauw</h1>
+        </div>
+        <p class="section-subheading" style="max-width: 560px; font-style: italic;">
+          “When you draw on the sand knowing the sea will claim it within hours, ego falls away. What matters is the purity of the gesture.”
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Portrait & Essence -->
+  <section class="artist-sanctuary" style="padding: 6rem 0;">
+    <div class="container-wide">
+      <div class="artist-editorial-grid">
+        <div>
+          <div class="artist-portrait-frame">
+            <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw and collective on the Zeeland shore">
+          </div>
+          <div class="artist-portrait-caption">
+            <span>Remko Delfgaauw (Center) with Collaborators</span>
+            <span>Brouwersdam, North Sea</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-label">Artistic Essence</div>
+          <h2 class="section-heading" style="font-size: clamp(1.8rem, 3vw, 2.8rem);">
+            The Architecture of Letting Go
+          </h2>
+          <blockquote class="artist-editorial-quote">
+            Nearly three decades of dialogue between sacred geometry, human consciousness, and the elemental forces of tide and earth.
+          </blockquote>
+          <p class="artist-editorial-note">
+            Beginning in 1997 with hand-flattened crop formations in the fields of Dreischor, Remko Delfgaauw’s work evolved from nocturnal geometry into world-record monumental earthworks—culminating in the 530-meter <strong>Project Atlas</strong> (2009) and the kinetic human choreography of <strong>Act As One</strong> (2021). Today, the vast intertidal sandbanks of Zeeland and Brittany serve as his primary canvas.
+          </p>
+          <a href="projects.html" class="museum-link">
+            <span>Explore the 35 Archived Works</span>
+            <span class="arrow">⟶</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Chronology (1997–2026) -->
+  <section class="artist-chronology">
+    <div class="container-wide">
+      <div class="section-label">Chronological Milestones · 1997—2026</div>
+      <h2 class="section-heading" style="margin-bottom: 3.5rem;">Five Chapters in Earth & Sand</h2>
+
+      <div class="chrono-row">
+        <div class="chrono-year">1997</div>
+        <div>
+          <h3 class="chrono-title">The Golden Gate — First Formation</h3>
+          <p class="chrono-whisper">
+            In the fields of Dreischor, Remko lays his first geometric crop formation using wooden boards and survey rope—discovering the quiet power of drawings visible only from the sky.
+          </p>
+        </div>
+        <a href="projects.html?work=golden-gate-1997" class="chrono-plate">
+          <img src="assets/projects/golden-gate-1997_1.jpg" alt="The Golden Gate 1997" loading="lazy">
+        </a>
+      </div>
+
+      <div class="chrono-row">
+        <div class="chrono-year">2009</div>
+        <div>
+          <span class="chrono-badge">Guinness World Record I</span>
+          <h3 class="chrono-title">Project Atlas — 530 Meters</h3>
+          <p class="chrono-whisper">
+            Orchestrating a dedicated team in Wilhelminadorp, Remko creates the largest crop formation in human history: a 530-by-450-meter winged Vitruvian figure certified by Guinness World Records.
+          </p>
+        </div>
+        <a href="projects.html?work=atlas-2009" class="chrono-plate">
+          <img src="assets/projects/atlas-2009_2.jpg" alt="Project Atlas 2009" loading="lazy">
+        </a>
+      </div>
+
+      <div class="chrono-row">
+        <div class="chrono-year">2016</div>
+        <div>
+          <h3 class="chrono-title">Pacific & North Sea Horizons</h3>
+          <p class="chrono-whisper">
+            Transitioning from inland harvest fields to the open ocean, inscriptions appear along the Sonoma coast north of San Francisco and the wide sandbanks of the Brouwersdam.
+          </p>
+        </div>
+        <a href="projects.html?work=california-heartbeat" class="chrono-plate">
+          <img src="assets/projects/california-heartbeat_1.webp" alt="California Heartbeat 2016" loading="lazy">
+        </a>
+      </div>
+
+      <div class="chrono-row">
+        <div class="chrono-year">2021</div>
+        <div>
+          <span class="chrono-badge">Guinness World Record II</span>
+          <h3 class="chrono-title">Act As One — Living Animation</h3>
+          <p class="chrono-whisper">
+            Together with René Bosma and Ron van Jeveren, over 150 participants become living pixels in a synchronized aerial stop-motion artwork in Zierikzee, earning a second Guinness World Record.
+          </p>
+        </div>
+        <a href="projects.html?work=act-as-one-2021" class="chrono-plate">
+          <img src="assets/projects/act-as-one-2021_1.webp" alt="Act As One 2021" loading="lazy">
+        </a>
+      </div>
+
+      <div class="chrono-row">
+        <div class="chrono-year">2023–26</div>
+        <div>
+          <h3 class="chrono-title">The Watersnood Trilogy & The Fire Horse</h3>
+          <p class="chrono-whisper">
+            Monumental commemorative works for the 1953 Flood Museum (<em>1,836 Crosses</em>, <em>A Drop in the Sea</em>, <em>Dientje Kramer</em>) and the 2025–2026 <em>Fire Horse</em> and Brittany mandalas.
+          </p>
+        </div>
+        <a href="projects.html?work=firehorse" class="chrono-plate">
+          <img src="assets/projects/firehorse_2.webp" alt="The Fire Horse" loading="lazy">
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Portal to Exhibition -->
+  <section class="archive-portal">
     <div class="container">
-      <div class="section-label">The Artist Behind Sandmagic</div>
-      <h1 class="section-heading">Remko Delfgaauw</h1>
-      <p class="section-subheading">
-        "When you draw on the sand knowing the sea will claim it within hours, ego falls away. What matters is the purity of the gesture and the presence of the moment."
-      </p>
-    </div>
-  </section>
-
-  <!-- Bio & Photo -->
-  <section class="container">
-    <div class="about-lead-grid">
-      <div class="about-img-box">
-        <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw and team on the Zeeland shore">
+      <div class="section-label" style="color: var(--accent-gold); justify-content: center;">
+        Complete Archive
       </div>
-      <div class="about-prose">
-        <h2 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--ink-primary); margin-bottom: 1.2rem;">
-          The Architecture of Impermanence
-        </h2>
-        <p>
-          Remko Delfgaauw has spent nearly three decades exploring the profound dialogue between mathematical sacred geometry, human consciousness, and the elemental forces of the earth.
-        </p>
-        <p>
-          Beginning in 1997 with hand-drawn geometric crop circles in the Dutch countryside, his work has steadily grown in ambition and scale. In 2009, Remko organized and led the creation of <strong>Project Atlas</strong>—a 530-meter geometric colossus that earned an official <strong>Guinness World Record</strong> for the largest land art installation in recorded history.
-        </p>
-        <p>
-          With a diverse background spanning technology entrepreneurship (as former co-owner of Bever Innovations) and hypnotherapy based in Zierikzee, Remko brings an intense focus on meditative flow, spatial awareness, and non-attachment to every canvas.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Chronological Journey -->
-  <section class="container">
-    <div class="section-label">A 28-Year Artistic Trajectory</div>
-    <div class="timeline-journey">
-
-      <div class="journey-item">
-        <div class="journey-year">1997</div>
-        <div class="journey-content">
-          <h3>The Golden Gate: First Earth Formations</h3>
-          <p>
-            Remko creates his first monumental earth drawing in the fields of the Netherlands. The realization that celestial geometry could be laid into living grain with wooden boards and ropes sparked a lifelong artistic devotion.
-          </p>
-        </div>
-      </div>
-
-      <div class="journey-item">
-        <div class="journey-year">2009</div>
-        <div class="journey-content">
-          <h3>Project Atlas <span class="record-badge">Guinness World Record</span></h3>
-          <p>
-            A 530-meter masterpiece etched into agricultural fields in Wilhelminadorp. Certified by Guinness World Records as the largest crop circle installation ever constructed, requiring coordinated precision across kilometers of walking lines.
-          </p>
-        </div>
-      </div>
-
-      <div class="journey-item">
-        <div class="journey-year">2016</div>
-        <div class="journey-content">
-          <h3>California Heartbeat & Coastal Expansion</h3>
-          <p>
-            Extending his medium from inland fields to the open coastline, Remko travels to the Pacific shores north of San Francisco, creating tidal drawings that interact directly with oceanic surf.
-          </p>
-        </div>
-      </div>
-
-      <div class="journey-item">
-        <div class="journey-year">2021</div>
-        <div class="journey-content">
-          <h3>Project Act As One <span class="record-badge">Guinness World Record</span></h3>
-          <p>
-            Pioneering the genre of "living animation," Remko, René Bosma, and Ron van Jeveren choreograph over one hundred human participants to create kinetic shifting geometry, captured via drone cinematography and awarded his second Guinness World Record.
-          </p>
-        </div>
-      </div>
-
-      <div class="journey-item">
-        <div class="journey-year">2023–26</div>
-        <div class="journey-content">
-          <h3>The Sandmagic Era: Coastal Mandalas & The Fire Horse</h3>
-          <p>
-            Focusing on the beaches of Zeeland and the Brouwersdam, Remko creates monumental beach drawings spanning up to 140 meters. In 2026, he unveiled the monumental <strong>Fire Horse</strong>—a roaring symbol of courage, resilience, and inner fire etched into the sand before being surrendered to the rising tide.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Philosophy Callout -->
-  <section style="background: var(--bg-surface); padding: 5rem 0; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
-    <div class="container" style="max-width: 800px; text-align: center;">
-      <div class="section-label" style="justify-content: center;">Core Philosophy</div>
-      <h2 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--ink-primary); margin-bottom: 1.5rem;">
-        "Art that disappears but doesn’t stay silent."
+      <h2 class="archive-portal-title">
+        Enter the <em>Catalogue Raisonné</em>
       </h2>
-      <p style="font-size: 1.05rem; line-height: 1.8; color: var(--ink-muted); margin-bottom: 2.5rem;">
-        Unlike permanent monuments that demand permanence from a fragile planet, Sandmagic celebrates the beauty of letting go. We borrow the sand during low tide, leave a breathtaking impression for those present, and let the North Sea reclaim every grain.
-      </p>
-      <a href="projects.html" class="pill-btn primary">Explore the Complete Archive (35 Works)</a>
+      <a href="projects.html" class="pill-btn large" style="background: var(--ink-ivory); color: var(--bg-obsidian); border-color: var(--ink-ivory);">
+        View All 35 Works ⟶
+      </a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="container-wide footer-inner">
       <div class="footer-brand">
         <div class="brand">
           <span class="brand-glyph">✦</span>
           <span class="brand-name">SANDMAGIC</span>
         </div>
         <p class="footer-tagline">
-          Art that disappears but doesn’t stay silent.<br>
-          Monumental ephemeral land art by Remko Delfgaauw.
+          “Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea.”
         </p>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Navigation</span>
-        <a href="index.html">Home</a>
-        <a href="projects.html">Selected Works (35)</a>
+        <span class="footer-heading">Exhibition</span>
+        <a href="index.html">Sanctuary (Home)</a>
+        <a href="projects.html">Catalogue Raisonné (35)</a>
         <a href="about.html">The Artist</a>
-        <a href="contact.html">Contact Studio</a>
-        <a href="guide.html">Architectural Guide</a>
+        <a href="contact.html">Curatorial Dialogue</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Milestones</span>
-        <a href="projects.html">Project Atlas (530m)</a>
-        <a href="projects.html">Act As One (Kinetic)</a>
-        <a href="projects.html">The Fire Horse 2026</a>
+        <span class="footer-heading">Landmark Plates</span>
+        <a href="projects.html?work=firehorse">№ 01 — The Fire Horse (2025)</a>
+        <a href="projects.html?work=droplet-2023">№ 02 — A Drop in the Sea (2023)</a>
+        <a href="projects.html?work=atlas-2009">№ 03 — Project Atlas (530m)</a>
+        <a href="projects.html?work=act-as-one-2021">№ 11 — Act As One (Kinetic)</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Artist Contact</span>
+        <span class="footer-heading">Studio Remko Delfgaauw</span>
         <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
         <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
-        <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
-        <span class="footer-address">Zierikzee & Brouwersdam, Zeeland, NL</span>
+        <span class="footer-address">Zierikzee & Brouwersdam<br>Zeeland, The Netherlands</span>
       </div>
     </div>
 
-    <div class="container footer-bottom">
-      <span>© 2026 Sandmagic & Remko Delfgaauw. All rights reserved.</span>
-      <span class="built-with">Ephemera Etched in the Tides</span>
+    <div class="container-wide footer-bottom">
+      <span>© 1997–2026 Remko Delfgaauw · Sandmagic Archive</span>
+      <span>Zero Permanent Footprint</span>
     </div>
   </footer>
 

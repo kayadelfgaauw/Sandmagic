@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SANDMAGIC — Ephemeral Land Art by Remko Delfgaauw</title>
+  <title>SANDMAGIC — Monumental Ephemeral Land Art by Remko Delfgaauw</title>
   <meta name="description" content="Art that disappears but doesn’t stay silent. Monumental beach drawings, crop circles, and living kinetic animations by 2-time Guinness World Record artist Remko Delfgaauw.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Site Navigation Header -->
+  <!-- Minimalist Museum Header -->
   <header class="site-header">
     <a href="index.html" class="brand">
       <span class="brand-glyph">✦</span>
@@ -20,232 +20,251 @@
     </a>
 
     <nav class="nav-links">
-      <a href="index.html" style="color: var(--ink-primary); font-weight: 600;">Home</a>
-      <a href="projects.html">Works (35)</a>
+      <a href="index.html" class="active">Sanctuary</a>
+      <a href="projects.html">Exhibition</a>
       <a href="about.html">The Artist</a>
-      <a href="contact.html">Contact</a>
-      <a href="guide.html" class="nav-guide-link">Guide</a>
+      <a href="contact.html">Dialogue</a>
     </nav>
 
-    <div class="header-cta-group">
-      <a href="projects.html" class="pill-btn primary">Explore Archive</a>
+    <div class="header-meta">
+      <span class="live-dot"></span>
+      <span>51°45'N 03°52'E · ZEELAND</span>
     </div>
   </header>
 
-  <!-- Hero Section with Living Bayer Dither Canvas -->
+  <!-- Section I: Living WebGL Dither Hero -->
   <section id="hero" class="hero-section">
-    <!-- Dither Canvas (Pinned Settings: 11 FPS, Rec. 709, Invert=True, Pinned Auto-levels) -->
     <canvas id="ditherCanvas"></canvas>
     <div class="hero-scrim"></div>
 
-    <div class="hero-inner">
-      <div class="hero-badge">
+    <div class="hero-top-bar">
+      <div class="hero-coord">
         <span class="live-dot"></span>
-        <span>Zeeland Coastline · Rec. 709 Living Dither</span>
+        <span>BROUWERSDAM INTERTIDAL ZONE · 140M MANDALA</span>
       </div>
+      <div>REC. 709 LIVING BAYER DITHER</div>
+    </div>
+
+    <div class="hero-inner">
+      <span class="hero-kicker">Ephemeral Land Art · Remko Delfgaauw</span>
 
       <h1 class="hero-title">
         ART THAT DISAPPEARS<br>
-        BUT DOESN’T STAY SILENT.
+        BUT DOESN’T <em>Stay Silent.</em>
       </h1>
 
-      <p class="hero-description">
-        Monumental beach geometry, crop installations, and living kinetic animations etched directly into the earth by Dutch artist <strong>Remko Delfgaauw</strong>. Destined to be surrendered to the rising tide.
+      <p class="hero-whisper">
+        Etched between low and high tide across the North Sea coast, witnessed from the heavens, and surrendered unconditionally to the sea.
       </p>
 
-      <div class="hero-actions">
-        <a href="projects.html" class="pill-btn primary large">Explore All 35 Works</a>
-        <a href="about.html" class="pill-btn outline large">Meet the Artist</a>
-      </div>
-
-      <div class="hero-footer-status">
-        <div class="status-item">
-          <span class="status-label">Guinness World Records</span>
-          <span class="status-val">2× Certified Earthworks</span>
-        </div>
-        <div class="status-item">
-          <span class="status-label">Primary Canvas</span>
-          <span class="status-val">Brouwersdam & North Sea Coast</span>
-        </div>
-        <div class="status-item">
-          <span class="status-label">Lifespan</span>
-          <span class="status-val">4 to 6 Hours (Until High Tide)</span>
-        </div>
-      </div>
+      <a href="projects.html" class="museum-link">
+        <span>Enter the Catalogue Raisonné (35 Works)</span>
+        <span class="arrow">⟶</span>
+      </a>
     </div>
 
-    <a href="#philosophy" class="scroll-cue" aria-label="Scroll to explore">
-      <span class="scroll-mouse">
-        <span class="scroll-wheel"></span>
-      </span>
-      <span class="scroll-text">Scroll to Immerse</span>
-    </a>
+    <div class="hero-bottom-bar">
+      <div class="hero-datums">
+        <div class="datum-item">
+          <span class="datum-label">Guinness World Records</span>
+          <span class="datum-val">2× Certified Earthworks</span>
+        </div>
+        <div class="datum-item">
+          <span class="datum-label">Record Scale</span>
+          <span class="datum-val">530 Meters (Project Atlas)</span>
+        </div>
+        <div class="datum-item">
+          <span class="datum-label">Lifespan</span>
+          <span class="datum-val">4 to 6 Hours (Until High Tide)</span>
+        </div>
+      </div>
+
+      <a href="#manifesto" class="scroll-cue">
+        <span>Scroll to Witness</span>
+        <span class="scroll-line"></span>
+      </a>
+    </div>
   </section>
 
-  <!-- Manifesto / Artistic Philosophy -->
-  <section id="philosophy" class="section philosophy-section">
+  <!-- Section II: Minimalist Architectural Philosophy -->
+  <section id="manifesto" class="statement-section">
     <div class="container">
-      <div class="section-label">Artistic Philosophy</div>
+      <div class="statement-inner">
+        <div class="section-label">The Philosophy of Impermanence</div>
+        <h2 class="statement-quote">
+          “We do not quarry stone or cast bronze. We borrow the wet sand for four hours at low tide, inscribe geometry <em>large enough to touch the sky</em>, and let the North Sea erase every trace.”
+        </h2>
 
-      <div class="manifesto-grid">
-        <div class="manifesto-lead">
-          <h2 class="quote-title">
-            "Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea."
-          </h2>
-          <p class="lead-text">
-            Sandmagic exists at the intersection of monumental sculpture, celestial geometry, and absolute impermanence. We do not quarry stone or pour concrete. Our medium is the damp sand revealed between low and high tide.
-          </p>
-          <p class="body-text">
-            Every creation is born in stillness, carved by hand with meticulous mathematical precision, celebrated at its aerial zenith, and returned unconditionally to the ocean. What remains is not physical debris, but an indelible impression on the human psyche.
-          </p>
-        </div>
-
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <span class="metric-number">530<span class="metric-unit">m</span></span>
-            <span class="metric-title">Record Diameter</span>
-            <p class="metric-desc">Project Atlas: Guinness World Record for the largest crop circle installation in human history.</p>
+        <div class="architectural-pillars">
+          <div class="pillar-cell">
+            <div class="pillar-num">530<span>m</span></div>
+            <div class="pillar-title">Record Diameter</div>
+            <div class="pillar-sub">Largest earthwork in history · Guinness Record</div>
           </div>
-
-          <div class="metric-card">
-            <span class="metric-number">2<span class="metric-unit">×</span></span>
-            <span class="metric-title">Guinness Titles</span>
-            <p class="metric-desc">Certified world records in monumental land art and synchronized living kinetic animation.</p>
+          <div class="pillar-cell">
+            <div class="pillar-num">35<span>works</span></div>
+            <div class="pillar-title">Catalogue Raisonné</div>
+            <div class="pillar-sub">Tidal drawings, crop circles & living animations (1997–2026)</div>
           </div>
-
-          <div class="metric-card">
-            <span class="metric-number">35</span>
-            <span class="metric-title">Archived Works</span>
-            <p class="metric-desc">Cataloged sand drawings, crop formations, and living animations created between 1997 and 2026.</p>
-          </div>
-
-          <div class="metric-card highlight">
-            <span class="metric-number">0<span class="metric-unit">%</span></span>
-            <span class="metric-title">Permanent Footprint</span>
-            <p class="metric-desc">100% natural, biodegradable execution. The high tide leaves the shore untouched.</p>
+          <div class="pillar-cell">
+            <div class="pillar-num">0<span>%</span></div>
+            <div class="pillar-title">Permanent Footprint</div>
+            <div class="pillar-sub">Pure raked sand surrendered to the rising tide</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Curated Landmark Works -->
-  <section id="works" class="section works-section">
-    <div class="container">
-      <div class="section-header-row">
+  <!-- Section III: Monumental Selected Plates -->
+  <section id="selected-works" class="exhibition-section">
+    <div class="container-wide">
+      <div class="exhibition-intro-bar">
         <div>
-          <div class="section-label">Selected Landmark Works</div>
-          <h2 class="section-heading">Monuments of the Ebb & Flow</h2>
+          <div class="section-label">Selected Plates · I — VI</div>
+          <h2 class="section-heading" style="margin-bottom: 0;">Monuments of Ebb & Flow</h2>
         </div>
-        <div>
-          <p class="section-header-desc">
-            Explore a curated selection of Remko Delfgaauw's landmark installations, or browse the entire 35-piece archive.
-          </p>
-          <a href="projects.html" class="pill-btn outline" style="margin-top: 1rem;">View All 35 Works →</a>
-        </div>
+        <a href="projects.html" class="museum-link">
+          <span>View Complete Archive (35 Works)</span>
+          <span class="arrow">⟶</span>
+        </a>
       </div>
 
-      <div class="works-showcase">
+      <div class="exhibition-stream">
 
-        <!-- Work 01: The Brouwersdam Sacred Mandala -->
-        <article class="work-card featured">
-          <div class="work-visual live-visual">
-            <div class="live-tag">Interactive Dither Exhibit</div>
-            <div class="work-caption-box">
-              <span class="work-year">2024–2026</span>
-              <h3 class="work-title">The Sacred Mandala of Brouwersdam</h3>
-              <p class="work-desc">
-                Over 140 meters of concentric geometries etched at the Dutch shoreline. Reconstructed above in real-time Rec. 709 Bayer ordered dither from aerial drone footage.
-              </p>
-              <div class="work-specs">
-                <span>Scale: 140m</span>
-                <span>Tide Window: 5.2h</span>
-                <span>Location: Brouwersdam, Zeeland</span>
-              </div>
+        <!-- Plate I: The Fire Horse (Diptych) -->
+        <article class="exhibit-piece layout-diptych">
+          <div class="exhibit-diptych-grid">
+            <div class="plate-frame" onclick="openHomeViewer(0, 0)">
+              <img src="assets/projects/firehorse_2.webp" alt="The Fire Horse — Aerial Perspective with Human Shadows" class="plate-img">
+              <span class="plate-hover-badge">Plate I · Inspect Scale ↗</span>
+            </div>
+            <div class="plate-frame" onclick="openHomeViewer(0, 1)">
+              <img src="assets/projects/firehorse_1.webp" alt="The Fire Horse — Solar Alignment over the North Sea" class="plate-img">
+              <span class="plate-hover-badge">Plate II · Solar Horizon ↗</span>
+            </div>
+          </div>
+          <div class="museum-placard" onclick="openHomeViewer(0, 0)">
+            <div class="placard-left">
+              <span class="placard-no">PLATE I · № 01</span>
+              <h3 class="placard-title">The Fire Horse</h3>
+              <p class="placard-whisper">Etched into the North Sea shoreline at low tide, welcoming the Year of the Fire Horse before the evening surf reclaimed the beach.</p>
+            </div>
+            <div class="placard-right">
+              <span class="placard-loc">Nieuw-Haamstede, Zeeland · 2025</span>
+              <span class="placard-specs">120m × 80m · Tidal Sand Drawing</span>
             </div>
           </div>
         </article>
 
-        <!-- Work 02: Firehorse (Chinese Zodiac 2026) -->
-        <article class="work-card">
-          <div class="work-visual">
-            <img src="assets/projects/firehorse_1.webp" alt="Firehorse Beach Drawing by Remko Delfgaauw" loading="lazy" class="work-img">
-            <div class="work-overlay">
-              <span class="overlay-tag">Year of the Fire Horse</span>
+        <!-- Plate II: A Drop in the Sea (Full-Width Monument) -->
+        <article class="exhibit-piece layout-monument">
+          <div class="exhibit-stage" onclick="openHomeViewer(1, 0)">
+            <div class="plate-frame">
+              <img src="assets/projects/droplet-2023_1.jpg" alt="A Drop in the Sea — 3D Anamorphic Beach Drawing" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Enter Viewing Room ↗</span>
             </div>
           </div>
-          <div class="work-body">
-            <span class="work-year">2026 Coastal Installation</span>
-            <h3 class="work-title">The Fire Horse</h3>
-            <p class="work-desc">
-              "2026 is not just another year, it is the year of the Fire Horse. It storms, it challenges, and sets in motion everything that has stood still for too long." Carved into the Zeeland sand, welcoming the lunar new year with raw kinetic courage.
-            </p>
-            <div class="work-specs">
-              <span>Scale: 120m × 80m</span>
-              <span>Coast: Brouwersdam, NL</span>
+          <div class="museum-placard" onclick="openHomeViewer(1, 0)">
+            <div class="placard-left">
+              <span class="placard-no">PLATE II · № 02</span>
+              <h3 class="placard-title">A Drop in the Sea</h3>
+              <p class="placard-whisper">Monumental three-dimensional illusion of parched, fractured earth suspended beneath a single tidal droplet.</p>
             </div>
-          </div>
-        </article>
-
-        <!-- Work 03: Project Atlas (Guinness World Record) -->
-        <article class="work-card">
-          <div class="work-visual">
-            <img src="assets/projects/atlas-2009_1.jpg" alt="Project Atlas Guinness World Record Land Art" loading="lazy" class="work-img">
-            <div class="work-overlay">
-              <span class="overlay-tag">Guinness World Record</span>
-            </div>
-          </div>
-          <div class="work-body">
-            <span class="work-year">Guinness Record Certified · 2009</span>
-            <h3 class="work-title">Project Atlas</h3>
-            <p class="work-desc">
-              The largest earthwork in recorded human history. Spanning an astonishing 530 meters, Remko Delfgaauw orchestrated the team that etched this colossal geometric titan into agricultural terrain in Wilhelminadorp.
-            </p>
-            <div class="work-specs">
-              <span>Scale: 530m Diameter</span>
-              <span>Global Award: Guinness Certified</span>
+            <div class="placard-right">
+              <span class="placard-loc">Watersnoodmuseum, Zeeland · 2023</span>
+              <span class="placard-specs">110m · Anamorphic 3D Sand Relief</span>
             </div>
           </div>
         </article>
 
-        <!-- Work 04: Project Act As One -->
-        <article class="work-card">
-          <div class="work-visual">
-            <img src="assets/projects/act-as-one-2021_1.webp" alt="Project Act As One Living Kinetic Animation" loading="lazy" class="work-img">
-            <div class="work-overlay">
-              <span class="overlay-tag">Living Animation</span>
+        <!-- Plate III: Project Atlas (Guinness World Record Diptych) -->
+        <article class="exhibit-piece layout-diptych">
+          <div class="exhibit-diptych-grid">
+            <div class="plate-frame" onclick="openHomeViewer(2, 0)">
+              <img src="assets/projects/atlas-2009_2.jpg" alt="Project Atlas — 530m Guinness World Record Earthwork" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Plate I · 530m Aerial View ↗</span>
+            </div>
+            <div class="plate-frame" onclick="openHomeViewer(2, 1)">
+              <img src="assets/projects/vitruvio-2015_2.webp" alt="Project Atlas — Human Heart at the Center of the 530m Butterfly" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Plate II · Human Scale in the Heart ↗</span>
             </div>
           </div>
-          <div class="work-body">
-            <span class="work-year">Guinness Record Certified · 2021</span>
-            <h3 class="work-title">Project Act As One</h3>
-            <p class="work-desc">
-              A monumental living kinetic animation where human participants and drone cinematography combined into synchronized shifting geometry, securing Remko's second Guinness World Record.
-            </p>
-            <div class="work-specs">
-              <span>Type: Living Animation</span>
-              <span>Location: Zierikzee</span>
+          <div class="museum-placard" onclick="openHomeViewer(2, 0)">
+            <div class="placard-left">
+              <span class="placard-no">PLATE III · № 03</span>
+              <h3 class="placard-title">Project Atlas</h3>
+              <p class="placard-whisper">Certified by Guinness World Records as the largest crop formation in human history—spanning the length of five football stadiums.</p>
+            </div>
+            <div class="placard-right">
+              <span class="placard-loc">Wilhelminadorp, Zeeland · 2009</span>
+              <span class="placard-specs">530m × 450m · Guinness World Record</span>
             </div>
           </div>
         </article>
 
-        <!-- Work 05: The Breakwater Horizon -->
-        <article class="work-card">
-          <div class="work-visual">
-            <img src="assets/images/sand_drawing_1.webp" alt="Aerial coastal view of Sandmagic beach drawing" loading="lazy" class="work-img">
-            <div class="work-overlay">
-              <span class="overlay-tag">Zeeland Coastline</span>
+        <!-- Plate IV: 1,836 Crosses (Diptych) -->
+        <article class="exhibit-piece layout-diptych">
+          <div class="exhibit-diptych-grid">
+            <div class="plate-frame" onclick="openHomeViewer(3, 0)">
+              <img src="assets/projects/slachtoffers_1.webp" alt="1,836 Crosses (Victims) at Sunset" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Plate I · Horizon View ↗</span>
+            </div>
+            <div class="plate-frame" onclick="openHomeViewer(3, 1)">
+              <img src="assets/projects/slachtoffers_2.webp" alt="1,836 Crosses Approaching the Tide" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Plate II · Tidal Threshold ↗</span>
             </div>
           </div>
-          <div class="work-body">
-            <span class="work-year">Tidal Interplay</span>
-            <h3 class="work-title">The Breakwater Horizon</h3>
-            <p class="work-desc">
-              Captured along the historic timber breakwaters of Zeeland. The sun glimmers off the North Sea as the tide advances, minutes before the drawing dissolves back into pure sand.
-            </p>
-            <div class="work-specs">
-              <span>Documentation: 8K Aerial Drone</span>
-              <span>Outcome: Complete Erasure</span>
+          <div class="museum-placard" onclick="openHomeViewer(3, 0)">
+            <div class="placard-left">
+              <span class="placard-no">PLATE IV · № 05</span>
+              <h3 class="placard-title">1,836 Crosses (Victims)</h3>
+              <p class="placard-whisper">One cross raked into the wet sand for every life lost in the 1953 North Sea flood, silently reclaimed by the sunset tide.</p>
+            </div>
+            <div class="placard-right">
+              <span class="placard-loc">Renesse, North Sea Coast · 2023</span>
+              <span class="placard-specs">1,836 Memorial Crosses · Tidal Elegy</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Plate V & VI: Staggered Gallery Pair (Poem in the Tide + Free Flow) -->
+        <article class="exhibit-piece layout-pair-left">
+          <div class="exhibit-stage" onclick="openHomeViewer(4, 0)">
+            <div class="plate-frame">
+              <img src="assets/projects/gedicht_2.webp" alt="Poem in the Tide — Ik Stijg" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Enter Viewing Room ↗</span>
+            </div>
+          </div>
+          <div class="museum-placard" onclick="openHomeViewer(4, 0)">
+            <div class="placard-left">
+              <span class="placard-no">PLATE V · № 06</span>
+              <h3 class="placard-title">Poem in the Tide</h3>
+              <p class="placard-whisper">“Ik stijg, weet dat ik stijg…” A solitary figure stands beneath colossal poetry inscribed across natural sandbars.</p>
+            </div>
+            <div class="placard-right">
+              <span class="placard-loc">Terneuzen · 2023</span>
+              <span class="placard-specs">95m · Tidal Typography</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="exhibit-piece layout-pair-right">
+          <div class="exhibit-stage" onclick="openHomeViewer(5, 0)">
+            <div class="plate-frame">
+              <img src="assets/projects/free-flow_1.webp" alt="Free Flow — Plage de Tréguer, Bretagne" loading="lazy" class="plate-img">
+              <span class="plate-hover-badge">Enter Viewing Room ↗</span>
+            </div>
+          </div>
+          <div class="museum-placard" onclick="openHomeViewer(5, 0)">
+            <div class="placard-left">
+              <span class="placard-no">PLATE VI · № 04</span>
+              <h3 class="placard-title">Free Flow</h3>
+              <p class="placard-whisper">Concentric harmonic rings raked into the Atlantic sands of Brittany.</p>
+            </div>
+            <div class="placard-right">
+              <span class="placard-loc">Bretagne, France · 2025</span>
+              <span class="placard-specs">130m · Tidal Mandala</span>
             </div>
           </div>
         </article>
@@ -254,155 +273,297 @@
     </div>
   </section>
 
-  <!-- The Ephemeral Process -->
-  <section id="process" class="section process-section">
-    <div class="container">
+  <!-- Section IV: The Ephemeral Ritual (Obsidian Interlude) -->
+  <section class="obsidian-section">
+    <div class="container-wide">
       <div class="section-label">The Ephemeral Ritual</div>
-      <h2 class="section-heading">From Lunar Tide to Pure Sky</h2>
+      <h2 class="section-heading" style="margin-bottom: 0;">Born at Low Tide. Erased by High Water.</h2>
 
-      <div class="process-timeline">
-        <div class="process-step">
-          <div class="step-badge">Phase 01</div>
-          <h3 class="step-title">Tidal Cartography</h3>
-          <p class="step-text">
-            Studying lunar tide charts to calculate the exact window of opportunity (typically 4.5 to 6 hours between high tides) and mapping the firmest damp sand.
-          </p>
+      <div class="ritual-grid">
+        <div class="ritual-phase">
+          <span class="ritual-roman">Phase I</span>
+          <div>
+            <h3 class="ritual-title">Lunar Cartography</h3>
+            <p class="ritual-whisper">Reading the tide tables to isolate the four-hour window of firm, damp sand.</p>
+          </div>
         </div>
 
-        <div class="process-step">
-          <div class="step-badge">Phase 02</div>
-          <h3 class="step-title">Sacred Geometry</h3>
-          <p class="step-text">
-            Translating mathematical designs into physical coordinate stakes, ropes, and compass lines spanning hundreds of meters across the beach.
-          </p>
+        <div class="ritual-phase">
+          <span class="ritual-roman">Phase II</span>
+          <div>
+            <h3 class="ritual-title">Sacred Geometry</h3>
+            <p class="ritual-whisper">Anchor stakes and tensioned ropes translate celestial mathematics to coastal scale.</p>
+          </div>
         </div>
 
-        <div class="process-step">
-          <div class="step-badge">Phase 03</div>
-          <h3 class="step-title">Physical Raking</h3>
-          <p class="step-text">
-            Hand-drawn with specialized rakes. Contrast is achieved through the texture of wet subsurface sand against dry surface crystals.
-          </p>
+        <div class="ritual-phase">
+          <span class="ritual-roman">Phase III</span>
+          <div>
+            <h3 class="ritual-title">The Rake</h3>
+            <p class="ritual-whisper">Hand-raking exposes dark subsurface moisture against sunlit dry crystals.</p>
+          </div>
         </div>
 
-        <div class="process-step">
-          <div class="step-badge">Phase 04</div>
-          <h3 class="step-title">Aerial Zenith</h3>
-          <p class="step-text">
-            At peak tide delay and optimal solar angle, cine-drones take flight to capture the finished masterwork from altitudes up to 500 meters.
-          </p>
+        <div class="ritual-phase">
+          <span class="ritual-roman">Phase IV</span>
+          <div>
+            <h3 class="ritual-title">Aerial Zenith</h3>
+            <p class="ritual-whisper">At peak completion, the work is witnessed from 500 meters above.</p>
+          </div>
         </div>
 
-        <div class="process-step">
-          <div class="step-badge">Phase 05</div>
-          <h3 class="step-title">Oceanic Return</h3>
-          <p class="step-text">
-            The North Sea tide sweeps in. Within twenty minutes, the entire monumental drawing dissolves. The canvas is returned pristine, clean, and silent.
-          </p>
+        <div class="ritual-phase">
+          <span class="ritual-roman">Phase V</span>
+          <div>
+            <h3 class="ritual-title">Oceanic Return</h3>
+            <p class="ritual-whisper">The North Sea advances. Within twenty minutes, the shore is pristine and silent.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Artist Spotlight Section -->
-  <section class="section artist-section">
-    <div class="container">
-      <div class="artist-layout">
-        <div class="artist-visual">
-          <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw and Sandmagic collective on the beach" loading="lazy" class="artist-photo">
-          <div class="artist-caption">
-            <span>Remko Delfgaauw (center) with collaborators on the Zeeland shore</span>
+  <!-- Section V: The Artist Sanctuary -->
+  <section class="artist-sanctuary">
+    <div class="container-wide">
+      <div class="artist-editorial-grid">
+        <div>
+          <div class="artist-portrait-frame">
+            <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw and collaborators on the Zeeland shore" loading="lazy">
+          </div>
+          <div class="artist-portrait-caption">
+            <span>Remko Delfgaauw & Collective</span>
+            <span>Zeeland Shoreline</span>
           </div>
         </div>
 
-        <div class="artist-bio">
+        <div>
           <div class="section-label">The Artist</div>
           <h2 class="section-heading">Remko Delfgaauw</h2>
-          <div class="artist-creds">
-            <span>Land Artist</span>
-            <span class="cred-dot">·</span>
-            <span>2× Guinness World Record Holder</span>
-            <span class="cred-dot">·</span>
-            <span>Founder of Sandmagic</span>
-          </div>
-
-          <p class="lead-bio">
-            "When you draw on the sand knowing the sea will claim it within hours, ego falls away. What matters is the purity of the gesture and the presence of the moment."
+          <blockquote class="artist-editorial-quote">
+            “When you draw on the sand knowing the sea will claim it within hours, ego falls away. What matters is the purity of the gesture and the presence of the moment.”
+          </blockquote>
+          <p class="artist-editorial-note">
+            Two-time Guinness World Record holder (<em>Project Atlas</em>, 2009 & <em>Act As One</em>, 2021). For nearly three decades, Remko Delfgaauw has used the fields and coastlines of Europe and California as an ephemeral canvas.
           </p>
-
-          <p class="bio-text">
-            After pioneering monumental crop circles in 1997 and orchestrating the historic 530-meter <strong>Project Atlas</strong> in 2009, Remko expanded his craft onto the shifting sands of the Dutch coast. In 2021, he achieved his second Guinness World Record for <strong>Project Act As One</strong>.
-          </p>
-
-          <div style="margin-top: 2rem;">
-            <a href="about.html" class="pill-btn primary">Read Full Biography & Story →</a>
-          </div>
+          <a href="about.html" class="museum-link">
+            <span>Biography & 29-Year Trajectory</span>
+            <span class="arrow">⟶</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Artist Dialogue / Contact Callout -->
-  <section class="section" style="background: var(--bg-surface); border-top: 1px solid var(--border-glass);">
-    <div class="container" style="max-width: 820px; text-align: center;">
-      <div class="section-label" style="justify-content: center;">Dialogue & Commissions</div>
-      <h2 class="section-heading">Initiate a Conversation with the Artist</h2>
-      <p style="font-size: 1.05rem; line-height: 1.7; color: var(--ink-muted); margin-bottom: 2.2rem;">
-        For bespoke coastal installations, collaborative retreats on the beach, museum exhibitions, or archival print inquiries, Remko welcomes direct dialogue.
-      </p>
-      <div style="display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
-        <a href="contact.html" class="pill-btn primary large">Contact Studio</a>
-        <a href="mailto:remko.delfgaauw@gmail.com" class="pill-btn outline large">remko.delfgaauw@gmail.com</a>
+  <!-- Section VI: Full-Bleed Portal to Complete Exhibition -->
+  <section class="archive-portal">
+    <div class="container">
+      <div class="section-label" style="color: var(--accent-gold); justify-content: center;">
+        Catalogue Raisonné · 1997—2026
       </div>
+      <h2 class="archive-portal-title">
+        Witness All <em>Thirty-Five</em> Monumental Works
+      </h2>
+      <a href="projects.html" class="pill-btn large" style="background: var(--ink-ivory); color: var(--bg-obsidian); border-color: var(--ink-ivory);">
+        Enter Full Exhibition ⟶
+      </a>
     </div>
   </section>
+
+  <!-- Full-Viewport Obsidian Viewing Room for Homepage Plates -->
+  <div id="viewingRoom" class="viewing-room" role="dialog" aria-modal="true" onclick="if(event.target === this) closeHomeViewer()">
+    <div class="vr-top-bar">
+      <div id="vrCatalogTag" class="vr-catalog-tag">SELECTED PLATE</div>
+      <div id="vrPlateSwitcher" class="vr-plate-switcher"></div>
+      <div class="vr-controls">
+        <button class="vr-icon-btn" id="vrZoomBtn" onclick="toggleHomeZoom()">+ Inspect</button>
+        <button class="vr-icon-btn" onclick="closeHomeViewer()">ESC · Close</button>
+      </div>
+    </div>
+
+    <div class="vr-stage" onclick="if(event.target === this) closeHomeViewer()">
+      <button class="vr-nav-arrow prev" onclick="stepHomeWork(-1)" aria-label="Previous Work">← Prev</button>
+      <img id="vrMainImg" src="" alt="" class="vr-main-img" onclick="toggleHomeZoom()">
+      <button class="vr-nav-arrow next" onclick="stepHomeWork(1)" aria-label="Next Work">Next →</button>
+    </div>
+
+    <div class="vr-bottom-placard">
+      <div>
+        <h2 id="vrTitle" class="vr-title"></h2>
+        <p id="vrWhisper" class="vr-whisper"></p>
+      </div>
+      <div class="vr-meta-right">
+        <span id="vrLocationYear"></span>
+        <span id="vrDimensions" style="color: var(--accent-gold);"></span>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="container-wide footer-inner">
       <div class="footer-brand">
         <div class="brand">
           <span class="brand-glyph">✦</span>
           <span class="brand-name">SANDMAGIC</span>
         </div>
         <p class="footer-tagline">
-          Art that disappears but doesn’t stay silent.<br>
-          Monumental ephemeral land art by Remko Delfgaauw.
+          “Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea.”
         </p>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Navigation</span>
-        <a href="index.html">Home</a>
-        <a href="projects.html">Selected Works (35)</a>
+        <span class="footer-heading">Exhibition</span>
+        <a href="index.html">Sanctuary (Home)</a>
+        <a href="projects.html">Catalogue Raisonné (35)</a>
         <a href="about.html">The Artist</a>
-        <a href="contact.html">Contact Studio</a>
-        <a href="guide.html">Architectural Guide</a>
+        <a href="contact.html">Curatorial Dialogue</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Landmark Projects</span>
-        <a href="projects.html">Brouwersdam Mandala</a>
-        <a href="projects.html">The Fire Horse 2026</a>
-        <a href="projects.html">Project Atlas (Guinness Record)</a>
-        <a href="projects.html">Project Act As One (Guinness Record)</a>
+        <span class="footer-heading">Landmark Plates</span>
+        <a href="projects.html?work=firehorse">№ 01 — The Fire Horse (2025)</a>
+        <a href="projects.html?work=droplet-2023">№ 02 — A Drop in the Sea (2023)</a>
+        <a href="projects.html?work=atlas-2009">№ 03 — Project Atlas (530m)</a>
+        <a href="projects.html?work=act-as-one-2021">№ 11 — Act As One (Kinetic)</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Studio Inquiries</span>
+        <span class="footer-heading">Studio Remko Delfgaauw</span>
         <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
         <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
-        <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
-        <span class="footer-address">Zierikzee & Brouwersdam, Zeeland, NL</span>
+        <span class="footer-address">Zierikzee & Brouwersdam<br>Zeeland, The Netherlands</span>
       </div>
     </div>
 
-    <div class="container footer-bottom">
-      <span>© 2026 Sandmagic & Remko Delfgaauw. All rights reserved.</span>
-      <span class="built-with">Built with Rec. 709 Bayer Ordered Dither Engine</span>
+    <div class="container-wide footer-bottom">
+      <span>© 1997–2026 Remko Delfgaauw · Sandmagic Archive</span>
+      <span>Built with Rec. 709 Bayer Ordered Dither Engine</span>
     </div>
   </footer>
 
+  <script>
+    const HOME_PLATES = [
+      {
+        tag: 'PLATE I · ARCHIVE № 01',
+        title: 'The Fire Horse',
+        whisper: 'Etched into the North Sea shoreline at low tide, welcoming the Year of the Fire Horse before the evening surf reclaimed the beach.',
+        locYear: 'Nieuw-Haamstede, Zeeland · 2025',
+        dims: '120m × 80m · Tidal Sand Drawing',
+        images: ['assets/projects/firehorse_2.webp', 'assets/projects/firehorse_1.webp']
+      },
+      {
+        tag: 'PLATE II · ARCHIVE № 02',
+        title: 'A Drop in the Sea',
+        whisper: 'Monumental three-dimensional illusion of parched, fractured earth suspended beneath a single tidal droplet.',
+        locYear: 'Watersnoodmuseum, Zeeland · 2023',
+        dims: '110m · Anamorphic 3D Sand Relief',
+        images: ['assets/projects/droplet-2023_1.jpg']
+      },
+      {
+        tag: 'PLATE III · ARCHIVE № 03',
+        title: 'Project Atlas',
+        whisper: 'Certified by Guinness World Records as the largest crop formation in human history—spanning the length of five football stadiums.',
+        locYear: 'Wilhelminadorp, Zeeland · 2009',
+        dims: '530m × 450m · Guinness World Record',
+        images: ['assets/projects/atlas-2009_2.jpg', 'assets/projects/vitruvio-2015_2.webp', 'assets/projects/atlas-2009_1.jpg']
+      },
+      {
+        tag: 'PLATE IV · ARCHIVE № 05',
+        title: '1,836 Crosses (Victims)',
+        whisper: 'One cross raked into the wet sand for every life lost in the 1953 North Sea flood, silently reclaimed by the sunset tide.',
+        locYear: 'Renesse, North Sea Coast · 2023',
+        dims: '1,836 Memorial Crosses · Tidal Elegy',
+        images: ['assets/projects/slachtoffers_1.webp', 'assets/projects/slachtoffers_2.webp']
+      },
+      {
+        tag: 'PLATE V · ARCHIVE № 06',
+        title: 'Poem in the Tide',
+        whisper: '“Ik stijg, weet dat ik stijg…” Monumental poetry inscribed across natural sandbars as the water rises.',
+        locYear: 'Terneuzen, Western Scheldt · 2023',
+        dims: '95m · Tidal Typography',
+        images: ['assets/projects/gedicht_2.webp', 'assets/projects/gedicht_1.webp']
+      },
+      {
+        tag: 'PLATE VI · ARCHIVE № 04',
+        title: 'Free Flow',
+        whisper: 'Concentric harmonic rings raked into the Atlantic sands of Brittany beneath the autumn sun.',
+        locYear: 'Plage de Tréguer, Bretagne · 2025',
+        dims: '130m · Interlocking Tidal Mandalas',
+        images: ['assets/projects/free-flow_1.webp', 'assets/projects/free-flow_2.webp']
+      }
+    ];
+
+    let homeWorkIdx = 0;
+    let homePlateIdx = 0;
+
+    window.openHomeViewer = function(wIdx, pIdx = 0) {
+      homeWorkIdx = wIdx;
+      homePlateIdx = pIdx;
+      renderHomeViewer();
+      document.getElementById('viewingRoom').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.renderHomeViewer = function() {
+      const item = HOME_PLATES[homeWorkIdx];
+      if (!item) return;
+      const imgEl = document.getElementById('vrMainImg');
+      imgEl.classList.remove('zoomed');
+      document.getElementById('vrZoomBtn').textContent = '+ Inspect';
+      imgEl.src = item.images[homePlateIdx] || item.images[0];
+      imgEl.alt = item.title;
+
+      document.getElementById('vrCatalogTag').textContent = item.tag;
+      document.getElementById('vrTitle').textContent = item.title;
+      document.getElementById('vrWhisper').textContent = item.whisper;
+      document.getElementById('vrLocationYear').textContent = item.locYear;
+      document.getElementById('vrDimensions').textContent = item.dims;
+
+      const switcher = document.getElementById('vrPlateSwitcher');
+      switcher.innerHTML = '';
+      if (item.images.length > 1) {
+        const romans = ['I', 'II', 'III'];
+        item.images.forEach((src, i) => {
+          const b = document.createElement('button');
+          b.className = 'vr-plate-btn' + (i === homePlateIdx ? ' active' : '');
+          b.textContent = `Plate ${romans[i] || i + 1}`;
+          b.onclick = (e) => {
+            e.stopPropagation();
+            homePlateIdx = i;
+            renderHomeViewer();
+          };
+          switcher.appendChild(b);
+        });
+      }
+    };
+
+    window.stepHomeWork = function(delta) {
+      homeWorkIdx = (homeWorkIdx + delta + HOME_PLATES.length) % HOME_PLATES.length;
+      homePlateIdx = 0;
+      renderHomeViewer();
+    };
+
+    window.toggleHomeZoom = function() {
+      const img = document.getElementById('vrMainImg');
+      const isZoomed = img.classList.toggle('zoomed');
+      document.getElementById('vrZoomBtn').textContent = isZoomed ? '− Reset' : '+ Inspect';
+    };
+
+    window.closeHomeViewer = function() {
+      document.getElementById('viewingRoom').classList.remove('open');
+      document.getElementById('vrMainImg').classList.remove('zoomed');
+      document.body.style.overflow = '';
+    };
+
+    window.addEventListener('keydown', (e) => {
+      const room = document.getElementById('viewingRoom');
+      if (!room.classList.contains('open')) return;
+      if (e.key === 'Escape') closeHomeViewer();
+      if (e.key === 'ArrowRight') stepHomeWork(1);
+      if (e.key === 'ArrowLeft') stepHomeWork(-1);
+    });
+  </script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

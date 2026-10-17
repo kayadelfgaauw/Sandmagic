@@ -3,254 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selected Works — Sandmagic by Remko Delfgaauw</title>
-  <meta name="description" content="Complete archive of monumental beach drawings, crop circles, and living animations created by Remko Delfgaauw from 1997 to 2026.">
+  <title>Catalogue Raisonné (1997–2026) — SANDMAGIC by Remko Delfgaauw</title>
+  <meta name="description" content="Complete exhibition archive of 35 monumental beach drawings, crop circles, and living kinetic animations by 2-time Guinness World Record artist Remko Delfgaauw.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      overflow-y: auto !important;
-    }
-    .catalog-header {
-      padding: 8rem 0 3rem;
-      border-bottom: 1px solid var(--border-glass);
-      background: linear-gradient(180deg, var(--bg-ground) 0%, #efe5d8 100%);
-    }
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-top: 2.5rem;
-    }
-    .filter-btn {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      padding: 0.45rem 1.1rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-glass);
-      background: var(--bg-glass);
-      color: var(--ink-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--ink-primary);
-      color: var(--bg-ground);
-      border-color: var(--ink-primary);
-    }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2.2rem;
-      padding: 4rem 0 6rem;
-    }
-    .project-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-    }
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 30px rgba(38, 30, 24, 0.08);
-      border-color: var(--accent-color);
-    }
-    .project-card-visual {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      background: #e6dcce;
-      overflow: hidden;
-    }
-    .project-card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .project-card:hover .project-card-img {
-      transform: scale(1.05);
-    }
-    .project-badge-cat {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(38, 30, 24, 0.8);
-      backdrop-filter: blur(8px);
-      color: var(--bg-ground);
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .project-card-body {
-      padding: 1.5rem 1.6rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    .project-card-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.4rem;
-    }
-    .project-year {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent-color);
-      letter-spacing: 0.1em;
-      font-weight: 600;
-    }
-    .project-card-title {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--ink-primary);
-      margin-bottom: 0.6rem;
-      line-height: 1.25;
-    }
-    .project-card-text {
-      font-size: 0.88rem;
-      line-height: 1.55;
-      color: var(--ink-muted);
-      flex: 1;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* Modal / Lightbox for Project Details */
-    .project-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1000;
-      background: rgba(18, 14, 11, 0.75);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .project-modal.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .modal-card {
-      background: var(--bg-ground);
-      border: 1px solid var(--border-glass);
-      border-radius: 16px;
-      max-width: 820px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.4rem;
-      background: var(--bg-glass);
-      border: 1px solid var(--border-glass);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 1.1rem;
-      color: var(--ink-primary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      transition: background 0.2s ease;
-    }
-    .modal-close:hover {
-      background: var(--ink-primary);
-      color: var(--bg-ground);
-    }
-    .modal-img-wrap {
-      width: 100%;
-      max-height: 480px;
-      overflow: hidden;
-      background: #111;
-    }
-    .modal-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-    .modal-body {
-      padding: 2.2rem 2.5rem 3rem;
-    }
-    .modal-meta-row {
-      display: flex;
-      gap: 1.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--accent-color);
-      margin-bottom: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .modal-title {
-      font-family: var(--font-serif);
-      font-size: 2rem;
-      margin-bottom: 1.2rem;
-      color: var(--ink-primary);
-    }
-    .modal-text {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--ink-muted);
-      white-space: pre-line;
-      margin-bottom: 2rem;
-    }
-    .modal-gallery-thumbs {
-      display: flex;
-      gap: 0.8rem;
-      overflow-x: auto;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-glass);
-    }
-    .modal-thumb {
-      width: 90px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 6px;
-      cursor: pointer;
-      opacity: 0.7;
-      border: 2px solid transparent;
-      transition: all 0.2s ease;
-    }
-    .modal-thumb:hover, .modal-thumb.active {
-      opacity: 1;
-      border-color: var(--accent-color);
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Site Header -->
+  <!-- Minimalist Museum Header -->
   <header class="site-header">
     <a href="index.html" class="brand">
       <span class="brand-glyph">✦</span>
@@ -258,119 +20,191 @@
     </a>
 
     <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="projects.html" style="color: var(--ink-primary); font-weight: 600;">Works</a>
+      <a href="index.html">Sanctuary</a>
+      <a href="projects.html" class="active">Exhibition</a>
       <a href="about.html">The Artist</a>
-      <a href="contact.html">Contact</a>
-      <a href="guide.html" class="nav-guide-link">Guide</a>
+      <a href="contact.html">Dialogue</a>
     </nav>
 
-    <div class="header-cta-group">
-      <a href="contact.html" class="pill-btn primary">Inquire</a>
+    <div class="header-meta">
+      <span>Catalogue Raisonné · 1997—2026</span>
     </div>
   </header>
 
-  <!-- Catalog Header -->
-  <section class="catalog-header">
-    <div class="container">
-      <div class="section-label">Archive (1997–2026)</div>
-      <h1 class="section-heading">Monumental Earthworks & Beach Art</h1>
-      <p class="section-subheading">
-        Every land art piece, beach drawing, crop circle, and living animation created by Remko Delfgaauw. From the 530-meter Guinness Record Atlas installation to the 2026 Fire Horse on the Brouwersdam shore.
-      </p>
+  <!-- Exhibition Header -->
+  <section class="exhibition-header">
+    <div class="container-wide">
+      <div class="exhibition-header-top">
+        <div>
+          <div class="section-label">Catalogue Raisonné · 1997—2026</div>
+          <h1 class="section-heading" style="margin-bottom: 0;">Monumental Ephemera</h1>
+        </div>
+        <p class="section-subheading" style="max-width: 520px;">
+          Thirty-five earthworks, tidal drawings, and living kinetic formations etched into the planet and surrendered to the sea.
+        </p>
+      </div>
 
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">All Works (<span id="countAll">35</span>)</button>
-        <button class="filter-btn" data-filter="Beach Art">Beach Art (<span id="countBeach">24</span>)</button>
-        <button class="filter-btn" data-filter="Crop Circles">Crop Circles (<span id="countCrop">9</span>)</button>
-        <button class="filter-btn" data-filter="Living Animations">Living Animations (<span id="countAnim">2</span>)</button>
+      <div class="exhibition-controls-bar">
+        <div class="curatorial-filters">
+          <button class="filter-tab active" data-filter="all">
+            All Works <sup id="countAll">35</sup>
+          </button>
+          <button class="filter-tab" data-filter="Beach Art">
+            Tidal Drawings <sup id="countBeach">23</sup>
+          </button>
+          <button class="filter-tab" data-filter="Crop Circles">
+            Crop Formations <sup id="countCrop">10</sup>
+          </button>
+          <button class="filter-tab" data-filter="Living Animations">
+            Living Kinetic <sup id="countAnim">2</sup>
+          </button>
+        </div>
+
+        <div class="view-mode-toggle" role="group" aria-label="Exhibition View Mode">
+          <button class="mode-btn active" id="btnModeGallery" onclick="setViewMode('gallery')">
+            Gallery Plates
+          </button>
+          <button class="mode-btn" id="btnModeIndex" onclick="setViewMode('index')">
+            Archival Index
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Grid -->
-  <main class="container">
-    <div id="projectsGrid" class="projects-grid">
-      <!-- Populated via JavaScript from projects_data.json -->
+  <!-- Main Exhibition Space -->
+  <main class="exhibition-section" style="padding-top: 5.5rem;">
+    <div class="container-wide">
+
+      <!-- Mode 1: Monumental Gallery Plates (Asymmetric 12-Col + Diptychs) -->
+      <div id="exhibitionStream" class="exhibition-stream">
+        <!-- Populated dynamically from projects_data.json -->
+      </div>
+
+      <!-- Mode 2: Archival Index Table with Floating Cursor Preview -->
+      <div id="archivalIndexList" class="archival-index-list">
+        <!-- Populated dynamically from projects_data.json -->
+      </div>
+
     </div>
   </main>
 
-  <!-- Project Details Lightbox Modal -->
-  <div id="projectModal" class="project-modal" onclick="if(event.target === this) closeModal()">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <div class="modal-img-wrap">
-        <img id="modalMainImg" src="" alt="" class="modal-img">
+  <!-- Floating Preview for Archival Index Mode -->
+  <div id="indexHoverPreview" class="index-hover-preview">
+    <img id="indexHoverImg" src="" alt="">
+  </div>
+
+  <!-- Full-Viewport Obsidian Viewing Room (Lightbox) -->
+  <div id="viewingRoom" class="viewing-room" role="dialog" aria-modal="true" onclick="if(event.target === this) closeViewingRoom()">
+    <div class="vr-top-bar">
+      <div id="vrCatalogTag" class="vr-catalog-tag">ARCHIVE № 01 / 35</div>
+      <div id="vrPlateSwitcher" class="vr-plate-switcher"></div>
+      <div class="vr-controls">
+        <button class="vr-icon-btn" id="vrZoomBtn" onclick="toggleZoom()">+ Inspect</button>
+        <button class="vr-icon-btn" onclick="closeViewingRoom()">ESC · Close</button>
       </div>
-      <div class="modal-body">
-        <div class="modal-meta-row">
-          <span id="modalYear"></span>
-          <span>·</span>
-          <span id="modalCat"></span>
-        </div>
-        <h2 id="modalTitle" class="modal-title"></h2>
-        <div id="modalText" class="modal-text"></div>
-        <div id="modalThumbs" class="modal-gallery-thumbs"></div>
+    </div>
+
+    <div class="vr-stage" onclick="if(event.target === this) closeViewingRoom()">
+      <button class="vr-nav-arrow prev" onclick="stepArtwork(-1)" aria-label="Previous Artwork">← Prev</button>
+      <img id="vrMainImg" src="" alt="" class="vr-main-img" onclick="toggleZoom()">
+      <button class="vr-nav-arrow next" onclick="stepArtwork(1)" aria-label="Next Artwork">Next →</button>
+    </div>
+
+    <div class="vr-bottom-placard">
+      <div>
+        <h2 id="vrTitle" class="vr-title"></h2>
+        <p id="vrWhisper" class="vr-whisper"></p>
+      </div>
+      <div class="vr-meta-right">
+        <span id="vrLocationYear"></span>
+        <span id="vrDimensions" style="color: var(--accent-gold);"></span>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="container-wide footer-inner">
       <div class="footer-brand">
         <div class="brand">
           <span class="brand-glyph">✦</span>
           <span class="brand-name">SANDMAGIC</span>
         </div>
         <p class="footer-tagline">
-          Art that disappears but doesn’t stay silent.<br>
-          Monumental ephemeral land art by Remko Delfgaauw.
+          “Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea.”
         </p>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Navigation</span>
-        <a href="index.html">Home</a>
-        <a href="projects.html">Selected Works (35)</a>
+        <span class="footer-heading">Exhibition</span>
+        <a href="index.html">Sanctuary (Home)</a>
+        <a href="projects.html">Catalogue Raisonné (35)</a>
         <a href="about.html">The Artist</a>
-        <a href="contact.html">Contact Studio</a>
-        <a href="guide.html">Architectural Guide</a>
+        <a href="contact.html">Curatorial Dialogue</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Collections</span>
-        <a href="projects.html?filter=Beach Art">Beach Drawings</a>
-        <a href="projects.html?filter=Crop Circles">Crop Circles (1997–2015)</a>
-        <a href="projects.html?filter=Living Animations">Living Animations</a>
+        <span class="footer-heading">Landmark Plates</span>
+        <a href="projects.html?work=firehorse">№ 01 — The Fire Horse (2025)</a>
+        <a href="projects.html?work=droplet-2023">№ 02 — A Drop in the Sea (2023)</a>
+        <a href="projects.html?work=atlas-2009">№ 03 — Project Atlas (530m)</a>
+        <a href="projects.html?work=act-as-one-2021">№ 11 — Act As One (Kinetic)</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Artist Contact</span>
+        <span class="footer-heading">Studio Remko Delfgaauw</span>
         <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
         <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
-        <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
-        <span class="footer-address">Zierikzee & Brouwersdam, Zeeland, NL</span>
+        <span class="footer-address">Zierikzee & Brouwersdam<br>Zeeland, The Netherlands</span>
       </div>
     </div>
 
-    <div class="container footer-bottom">
-      <span>© 2026 Sandmagic & Remko Delfgaauw. All rights reserved.</span>
-      <span class="built-with">Ephemera Etched in the Tides</span>
+    <div class="container-wide footer-bottom">
+      <span>© 1997–2026 Remko Delfgaauw · Sandmagic Archive</span>
+      <span>Zero Permanent Footprint</span>
     </div>
   </footer>
 
   <script>
     let allProjects = [];
+    let filteredProjects = [];
+    let currentFilter = 'all';
+    let currentViewMode = 'gallery';
+    let activeProjectIdx = 0;
+    let activePlateIdx = 0;
 
-    async function loadProjects() {
+    async function initExhibition() {
       try {
         const resp = await fetch('projects_data.json');
         allProjects = await resp.json();
-        renderProjects('all');
         updateCounts();
+
+        const params = new URLSearchParams(window.location.search);
+        const filterParam = params.get('filter');
+        const workParam = params.get('work');
+
+        if (filterParam) {
+          const btn = Array.from(document.querySelectorAll('.filter-tab')).find(
+            b => b.dataset.filter === filterParam
+          );
+          if (btn) {
+            document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = filterParam;
+          }
+        }
+
+        renderExhibition(currentFilter);
+
+        if (workParam) {
+          const idx = filteredProjects.findIndex(p => p.slug === workParam);
+          if (idx !== -1) {
+            openViewingRoom(idx, 0);
+          }
+        }
       } catch (err) {
-        console.error('Failed to load projects:', err);
+        console.error('Failed to load archive:', err);
       }
     }
 
@@ -384,108 +218,245 @@
       document.getElementById('countAnim').textContent = anim;
     }
 
-    function renderProjects(filter) {
-      const grid = document.getElementById('projectsGrid');
-      grid.innerHTML = '';
+    function getProjectImages(p) {
+      if (p.local_images && p.local_images.length > 0) return p.local_images;
+      if (p.images && p.images.length > 0) return p.images;
+      return ['assets/images/crop_atlas.webp'];
+    }
 
-      const filtered = filter === 'all' 
-        ? allProjects 
+    function renderExhibition(filter) {
+      filteredProjects = filter === 'all'
+        ? [...allProjects]
         : allProjects.filter(p => p.category === filter);
 
-      filtered.forEach((p, idx) => {
-        const card = document.createElement('article');
-        card.className = 'project-card';
-        card.onclick = () => openModal(p);
+      const stream = document.getElementById('exhibitionStream');
+      const indexList = document.getElementById('archivalIndexList');
+      stream.innerHTML = '';
+      indexList.innerHTML = '';
 
-        const imgSrc = (p.local_images && p.local_images.length > 0) 
-          ? p.local_images[0] 
-          : ((p.images && p.images.length > 0) ? p.images[0] : 'assets/images/crop_atlas.webp');
+      // Track pair alignment when filtered
+      let pendingLeftPair = false;
 
-        card.innerHTML = `
-          <div class="project-card-visual">
-            <img src="${imgSrc}" alt="${p.title}" loading="lazy" class="project-card-img" onerror="this.src='assets/images/crop_atlas.webp'">
-            <span class="project-badge-cat">${p.category}</span>
-          </div>
-          <div class="project-card-body">
-            <div class="project-card-meta">
-              <span class="project-year">${p.year || 'Archive'}</span>
+      filteredProjects.forEach((p, idx) => {
+        const imgs = getProjectImages(p);
+        const catNo = p.catalogNo || String(idx + 1).padStart(2, '0');
+
+        // Determine architectural layout class
+        let layoutType = p.layout || 'monument';
+        if (imgs.length >= 2 && layoutType === 'diptych') {
+          layoutType = 'diptych';
+          pendingLeftPair = false;
+        } else if (layoutType === 'monument') {
+          pendingLeftPair = false;
+        } else {
+          // Alternate pair-left and pair-right cleanly even when filtered
+          if (!pendingLeftPair) {
+            // Check if the next item in filteredProjects is also a single-plate pair
+            const nextP = filteredProjects[idx + 1];
+            const nextImgs = nextP ? getProjectImages(nextP) : [];
+            const nextIsPair = nextP && nextP.layout !== 'monument' && !(nextImgs.length >= 2 && nextP.layout === 'diptych');
+            if (nextIsPair) {
+              layoutType = 'pair-left';
+              pendingLeftPair = true;
+            } else {
+              layoutType = 'monument';
+              pendingLeftPair = false;
+            }
+          } else {
+            layoutType = 'pair-right';
+            pendingLeftPair = false;
+          }
+        }
+
+        // 1. Build Monumental Gallery Plate Element
+        const article = document.createElement('article');
+        article.className = `exhibit-piece layout-${layoutType}`;
+
+        let stageHTML = '';
+        if (layoutType === 'diptych' && imgs.length >= 2) {
+          stageHTML = `
+            <div class="exhibit-diptych-grid">
+              <div class="plate-frame" onclick="openViewingRoom(${idx}, 0)">
+                <img src="${imgs[0]}" alt="${p.title} — Plate I" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
+                <span class="plate-hover-badge">Plate I · Inspect ↗</span>
+              </div>
+              <div class="plate-frame" onclick="openViewingRoom(${idx}, 1)">
+                <img src="${imgs[1]}" alt="${p.title} — Plate II" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
+                <span class="plate-hover-badge">Plate II · Inspect ↗</span>
+              </div>
             </div>
-            <h3 class="project-card-title">${p.title}</h3>
-            <p class="project-card-text">${p.description || 'Monumental land art installation by Remko Delfgaauw.'}</p>
+          `;
+        } else {
+          stageHTML = `
+            <div class="exhibit-stage" onclick="openViewingRoom(${idx}, 0)">
+              <div class="plate-frame">
+                <img src="${imgs[0]}" alt="${p.title}" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
+                <span class="plate-hover-badge">Enter Viewing Room ↗</span>
+              </div>
+            </div>
+          `;
+        }
+
+        article.innerHTML = `
+          ${stageHTML}
+          <div class="museum-placard" onclick="openViewingRoom(${idx}, 0)">
+            <div class="placard-left">
+              <span class="placard-no">№ ${catNo}</span>
+              <h2 class="placard-title">${p.title}</h2>
+              ${p.whisper ? `<p class="placard-whisper">${p.whisper}</p>` : ''}
+            </div>
+            <div class="placard-right">
+              <span class="placard-loc">${p.location || 'Zeeland'} · ${p.year || 'Archive'}</span>
+              <span class="placard-specs">${p.dimensions || p.category}</span>
+            </div>
           </div>
         `;
-        grid.appendChild(card);
+        stream.appendChild(article);
+
+        // 2. Build Archival Index Row
+        const row = document.createElement('div');
+        row.className = 'index-row';
+        row.onclick = () => openViewingRoom(idx, 0);
+        row.onmouseenter = () => showIndexPreview(imgs[0]);
+        row.onmouseleave = () => hideIndexPreview();
+
+        row.innerHTML = `
+          <span class="idx-no">№ ${catNo}</span>
+          <span class="idx-year">${p.year || '—'}</span>
+          <span class="idx-title">${p.title}</span>
+          <span class="idx-location">${p.location || 'Netherlands'}</span>
+          <span class="idx-medium">${p.dimensions || p.category}</span>
+          <span class="idx-action">${imgs.length > 1 ? `${imgs.length} Plates ↗` : 'Plate ↗'}</span>
+        `;
+        indexList.appendChild(row);
       });
     }
 
-    function openModal(p) {
-      const modal = document.getElementById('projectModal');
-      const mainImg = document.getElementById('modalMainImg');
-      const year = document.getElementById('modalYear');
-      const cat = document.getElementById('modalCat');
-      const title = document.getElementById('modalTitle');
-      const text = document.getElementById('modalText');
-      const thumbs = document.getElementById('modalThumbs');
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      const stream = document.getElementById('exhibitionStream');
+      const indexList = document.getElementById('archivalIndexList');
+      const btnGallery = document.getElementById('btnModeGallery');
+      const btnIndex = document.getElementById('btnModeIndex');
 
-      const images = (p.local_images && p.local_images.length > 0) ? p.local_images : p.images;
-      const primaryImg = images && images.length > 0 ? images[0] : 'assets/images/crop_atlas.webp';
-
-      mainImg.src = primaryImg;
-      mainImg.alt = p.title;
-      year.textContent = p.year || 'Archive';
-      cat.textContent = p.category;
-      title.textContent = p.title;
-      text.textContent = p.description || 'Monumental outdoor earth installation created by Remko Delfgaauw, captured via aerial photography before dissolution.';
-
-      thumbs.innerHTML = '';
-      if (images && images.length > 1) {
-        images.forEach((img, i) => {
-          const t = document.createElement('img');
-          t.src = img;
-          t.className = 'modal-thumb' + (i === 0 ? ' active' : '');
-          t.onclick = () => {
-            mainImg.src = img;
-            document.querySelectorAll('.modal-thumb').forEach(el => el.classList.remove('active'));
-            t.classList.add('active');
-          };
-          thumbs.appendChild(t);
-        });
+      if (mode === 'index') {
+        stream.classList.add('hidden');
+        indexList.classList.add('active');
+        btnGallery.classList.remove('active');
+        btnIndex.classList.add('active');
+      } else {
+        stream.classList.remove('hidden');
+        indexList.classList.remove('active');
+        btnGallery.classList.add('active');
+        btnIndex.classList.remove('active');
+        hideIndexPreview();
       }
+    }
 
-      modal.classList.add('open');
+    function showIndexPreview(src) {
+      const box = document.getElementById('indexHoverPreview');
+      const img = document.getElementById('indexHoverImg');
+      img.src = src;
+      box.classList.add('visible');
+    }
+
+    function hideIndexPreview() {
+      const box = document.getElementById('indexHoverPreview');
+      box.classList.remove('visible');
+    }
+
+    // Viewing Room Lightbox
+    function openViewingRoom(projectIdx, plateIdx = 0) {
+      activeProjectIdx = projectIdx;
+      activePlateIdx = plateIdx;
+      updateViewingRoomContent();
+      const room = document.getElementById('viewingRoom');
+      room.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
-    function closeModal() {
-      const modal = document.getElementById('projectModal');
-      modal.classList.remove('open');
+    function updateViewingRoomContent() {
+      const p = filteredProjects[activeProjectIdx];
+      if (!p) return;
+
+      const imgs = getProjectImages(p);
+      if (activePlateIdx >= imgs.length) activePlateIdx = 0;
+
+      const mainImg = document.getElementById('vrMainImg');
+      mainImg.classList.remove('zoomed');
+      document.getElementById('vrZoomBtn').textContent = '+ Inspect';
+      mainImg.src = imgs[activePlateIdx];
+      mainImg.alt = p.title;
+
+      const catNo = p.catalogNo || String(activeProjectIdx + 1).padStart(2, '0');
+      document.getElementById('vrCatalogTag').textContent =
+        `ARCHIVE № ${catNo} — ${activeProjectIdx + 1} OF ${filteredProjects.length}`;
+      document.getElementById('vrTitle').textContent = p.title;
+      document.getElementById('vrWhisper').textContent = p.whisper || '';
+      document.getElementById('vrLocationYear').textContent =
+        `${p.location || 'Zeeland'} · ${p.year || 'Archive'}`;
+      document.getElementById('vrDimensions').textContent =
+        p.dimensions || p.category;
+
+      const switcher = document.getElementById('vrPlateSwitcher');
+      switcher.innerHTML = '';
+      if (imgs.length > 1) {
+        const romans = ['I', 'II', 'III', 'IV'];
+        imgs.forEach((imgUrl, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'vr-plate-btn' + (i === activePlateIdx ? ' active' : '');
+          btn.textContent = `Plate ${romans[i] || i + 1}`;
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            activePlateIdx = i;
+            updateViewingRoomContent();
+          };
+          switcher.appendChild(btn);
+        });
+      }
+    }
+
+    function stepArtwork(delta) {
+      if (!filteredProjects.length) return;
+      activeProjectIdx = (activeProjectIdx + delta + filteredProjects.length) % filteredProjects.length;
+      activePlateIdx = 0;
+      updateViewingRoomContent();
+    }
+
+    function toggleZoom() {
+      const img = document.getElementById('vrMainImg');
+      const btn = document.getElementById('vrZoomBtn');
+      const isZoomed = img.classList.toggle('zoomed');
+      btn.textContent = isZoomed ? '− Reset' : '+ Inspect';
+    }
+
+    function closeViewingRoom() {
+      const room = document.getElementById('viewingRoom');
+      room.classList.remove('open');
+      document.getElementById('vrMainImg').classList.remove('zoomed');
       document.body.style.overflow = '';
     }
 
-    // Filter bar click handling
-    document.querySelectorAll('.filter-btn').forEach(btn => {
+    // Filter tabs binding
+    document.querySelectorAll('.filter-tab').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        renderProjects(btn.dataset.filter);
+        currentFilter = btn.dataset.filter;
+        renderExhibition(currentFilter);
       });
     });
 
+    // Keyboard navigation inside Viewing Room
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
+      const room = document.getElementById('viewingRoom');
+      if (!room.classList.contains('open')) return;
+      if (e.key === 'Escape') closeViewingRoom();
+      if (e.key === 'ArrowRight') stepArtwork(1);
+      if (e.key === 'ArrowLeft') stepArtwork(-1);
     });
 
-    // Check query params on load
-    const urlParams = new URLSearchParams(window.location.search);
-    const filterParam = urlParams.get('filter');
-
-    loadProjects().then(() => {
-      if (filterParam) {
-        const targetBtn = Array.from(document.querySelectorAll('.filter-btn')).find(b => b.dataset.filter === filterParam);
-        if (targetBtn) targetBtn.click();
-      }
-    });
+    initExhibition();
   </script>
-
 </body>
 </html>

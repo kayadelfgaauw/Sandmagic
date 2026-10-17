@@ -26,10 +26,10 @@ export class DitherEngine {
     this.groundColor = options.groundColor ?? '#f5ede2';
     this.inkColor = options.inkColor ?? '#261e18';
 
-    // Pinned percentiles (eliminates frame pulsing)
-    this.pinnedP2 = 0.02;
-    this.pinnedP98 = 0.98;
-    this.isPinned = false;
+    // Calibrated pinned percentiles from sand sequence (eliminates flicker completely)
+    this.pinnedP2 = 0.0863;
+    this.pinnedP98 = 0.7412;
+    this.isPinned = true;
 
     // Pointer warp state
     this.pointer = {
@@ -54,13 +54,13 @@ export class DitherEngine {
     this.gl = null;
     this.program = null;
     this.uniforms = {};
-    this.bayerTexture = null;
     this.sourceTexture = null;
     this.crossfadeTexture = null;
     this.dummyTexture = null;
+    this.lastSourceImg = null;
+    this.lastCrossfadeImg = null;
     this.quadBuffer = null;
     this.isInitialized = false;
-    this.fallbackEngine = null;
     this.startTime = performance.now();
   }
 
@@ -72,7 +72,7 @@ export class DitherEngine {
         alpha: false,
         depth: false,
         stencil: false,
-        antialias: true,
+        antialias: false, // fragment shader anti-aliases circles via smoothstep
         powerPreference: 'high-performance',
         preserveDrawingBuffer: false
       }) || canvas.getContext('experimental-webgl');
@@ -86,7 +86,6 @@ export class DitherEngine {
       this.gl = gl;
       this.initShaders();
       this.initGeometry();
-      this.initBayerTexture();
       this.initDummyTexture();
 
       this.sourceTexture = gl.createTexture();
@@ -144,7 +143,7 @@ export class DitherEngine {
 
     // Cache uniform locations
     const uniformNames = [
-      'u_image', 'u_crossfadeImage', 'u_crossfadeAlpha', 'u_bayerTexture',
+      'u_image', 'u_crossfadeImage', 'u_crossfadeAlpha',
       'u_resolution', 'u_sourceResolution', 'u_cropRect', 'u_pixelSize',
       'u_spacing', 'u_dotScale', 'u_levels', 'u_contrast', 'u_brightness',
       'u_invert', 'u_bgFloor', 'u_pinnedP2', 'u_pinnedP98', 'u_groundColor',
@@ -175,29 +174,6 @@ export class DitherEngine {
        1,  1
     ]);
     gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-  }
-
-  initBayerTexture() {
-    const gl = this.gl;
-    // 8x8 Bayer matrix values normalized to [0, 255]
-    const bayerValues = new Uint8Array([
-       0, 32,  8, 40,  2, 34, 10, 42,
-      48, 16, 56, 24, 50, 18, 58, 26,
-      12, 44,  4, 36, 14, 46,  6, 38,
-      60, 28, 52, 20, 62, 30, 54, 22,
-       3, 35, 11, 43,  1, 33,  9, 41,
-      51, 19, 59, 27, 49, 17, 57, 25,
-      15, 47,  7, 39, 13, 45,  5, 37,
-      63, 31, 55, 23, 61, 29, 53, 21
-    ].map(v => Math.round((v / 64) * 255)));
-
-    this.bayerTexture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, this.bayerTexture);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, 8, 8, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, bayerValues);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
   }
 
   initDummyTexture() {
@@ -231,68 +207,18 @@ export class DitherEngine {
 
   updatePointerSpring() {
     if (!this.pointer.active) {
-      this.pointer.x += (-9999 - this.pointer.x) * 0.1;
-      this.pointer.y += (-9999 - this.pointer.y) * 0.1;
+      this.pointer.x += (-9999 - this.pointer.x) * 0.15;
+      this.pointer.y += (-9999 - this.pointer.y) * 0.15;
       return;
     }
-    this.pointer.x += (this.pointer.targetX - this.pointer.x) * 0.2;
-    this.pointer.y += (this.pointer.targetY - this.pointer.y) * 0.2;
+    // Smooth responsive spring
+    this.pointer.x += (this.pointer.targetX - this.pointer.x) * 0.25;
+    this.pointer.y += (this.pointer.targetY - this.pointer.y) * 0.25;
     this.pointer.phase += 0.05;
   }
 
-  computeAndPinLevels(imgElement) {
-    // Quick downscaled histogram sample
-    try {
-      const off = document.createElement('canvas');
-      off.width = 120;
-      off.height = 68;
-      const ctx = off.getContext('2d');
-      ctx.drawImage(imgElement, 0, 0, 120, 68);
-      const data = ctx.getImageData(0, 0, 120, 68).data;
-
-      const hist = new Int32Array(256);
-      const totalPixels = 120 * 68;
-      for (let i = 0; i < data.length; i += 4) {
-        const lum = Math.round(0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]);
-        hist[Math.max(0, Math.min(255, lum))]++;
-      }
-
-      const lowCut = totalPixels * 0.02;
-      const highCut = totalPixels * 0.98;
-      let count = 0, p2 = 0.02, p98 = 0.98, foundLow = false;
-
-      for (let b = 0; b < 256; b++) {
-        count += hist[b];
-        if (!foundLow && count >= lowCut) {
-          p2 = b / 255.0;
-          foundLow = true;
-        }
-        if (count >= highCut) {
-          p98 = b / 255.0;
-          break;
-        }
-      }
-      if (p98 <= p2) p98 = p2 + 0.05;
-      this.pinnedP2 = p2;
-      this.pinnedP98 = p98;
-      this.isPinned = true;
-      this.telemetry.pinnedP2 = p2;
-      this.telemetry.pinnedP98 = p98;
-    } catch {
-      this.pinnedP2 = 0.02;
-      this.pinnedP98 = 0.98;
-      this.isPinned = true;
-    }
-  }
-
-  resetPinnedLevels() {
-    this.isPinned = false;
-    this.pinnedP2 = 0.02;
-    this.pinnedP98 = 0.98;
-  }
-
   /**
-   * Main Render Call
+   * Main Render Call (Runs at 60+ FPS)
    */
   renderFrame(canvasOrCtx, targetWidth, targetHeight, sourceImg, crossfadeImg = null, crossfadeAlpha = 0.0) {
     const t0 = performance.now();
@@ -300,7 +226,6 @@ export class DitherEngine {
 
     const canvas = canvasOrCtx.canvas || canvasOrCtx;
     if (!this.initWebGL(canvas)) {
-      // 2D fallback if WebGL fails
       this.renderFallback2D(canvas, targetWidth, targetHeight, sourceImg);
       return;
     }
@@ -309,19 +234,14 @@ export class DitherEngine {
     gl.viewport(0, 0, targetWidth, targetHeight);
     gl.useProgram(this.program);
 
-    if (!this.isPinned && sourceImg) {
-      this.computeAndPinLevels(sourceImg);
-    }
-
-    // Bind current source image/video to Texture 0
+    // Bind current source image only when it changed (huge performance boost!)
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, this.sourceTexture);
-    if (sourceImg) {
+    if (sourceImg && sourceImg !== this.lastSourceImg) {
       try {
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, sourceImg);
-      } catch (err) {
-        // Continue if frame is not ready
-      }
+        this.lastSourceImg = sourceImg;
+      } catch (err) {}
     }
     gl.uniform1i(this.uniforms.u_image, 0);
 
@@ -329,9 +249,12 @@ export class DitherEngine {
     gl.activeTexture(gl.TEXTURE1);
     if (crossfadeImg && crossfadeAlpha > 0.001) {
       gl.bindTexture(gl.TEXTURE_2D, this.crossfadeTexture);
-      try {
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, crossfadeImg);
-      } catch {}
+      if (crossfadeImg !== this.lastCrossfadeImg) {
+        try {
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, crossfadeImg);
+          this.lastCrossfadeImg = crossfadeImg;
+        } catch {}
+      }
       gl.uniform1f(this.uniforms.u_crossfadeAlpha, crossfadeAlpha);
     } else {
       gl.bindTexture(gl.TEXTURE_2D, this.dummyTexture);
@@ -339,22 +262,19 @@ export class DitherEngine {
     }
     gl.uniform1i(this.uniforms.u_crossfadeImage, 1);
 
-    // Bind Bayer matrix to Texture 2
-    gl.activeTexture(gl.TEXTURE2);
-    gl.bindTexture(gl.TEXTURE_2D, this.bayerTexture);
-    gl.uniform1i(this.uniforms.u_bayerTexture, 2);
-
-    // Pass Uniforms
+    // Viewport resolution
     gl.uniform2f(this.uniforms.u_resolution, targetWidth, targetHeight);
 
     const srcW = sourceImg?.videoWidth || sourceImg?.naturalWidth || sourceImg?.width || 700;
     const srcH = sourceImg?.videoHeight || sourceImg?.naturalHeight || sourceImg?.height || 394;
     gl.uniform2f(this.uniforms.u_sourceResolution, srcW, srcH);
 
-    // Crop border parameters [x, y, w, h]
+    // Border crop
     gl.uniform4f(this.uniforms.u_cropRect, 0.0, 0.0, 1.0, 1.0);
 
-    gl.uniform1f(this.uniforms.u_pixelSize, Math.max(4.0, this.pixelSize));
+    // Grid sizing scaled by devicePixelRatio for consistent crisp dots
+    const dpr = window.devicePixelRatio || 1;
+    gl.uniform1f(this.uniforms.u_pixelSize, Math.max(4.0, this.pixelSize * dpr));
     gl.uniform1f(this.uniforms.u_spacing, this.spacing);
     gl.uniform1f(this.uniforms.u_dotScale, this.dotScale);
     gl.uniform1f(this.uniforms.u_levels, Math.max(2.0, this.levels));

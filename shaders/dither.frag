@@ -8,13 +8,12 @@ varying vec2 v_uv;
 uniform sampler2D u_image;
 uniform sampler2D u_crossfadeImage;
 uniform float u_crossfadeAlpha;
-uniform sampler2D u_bayerTexture;
 
 // Viewport & Grid parameters
 uniform vec2 u_resolution;         // Canvas width and height in device pixels
 uniform vec2 u_sourceResolution;   // Source image dimensions (e.g. 700, 394)
 uniform vec4 u_cropRect;           // Crop [x, y, w, h] to strip baked-in borders
-uniform float u_pixelSize;         // Cell size in device pixels (e.g. 10.0 * dpr)
+uniform float u_pixelSize;         // Cell size in device pixels
 uniform float u_spacing;           // Gap spacing ratio (0.35)
 uniform float u_dotScale;          // Dot scale (0.85)
 
@@ -24,8 +23,8 @@ uniform float u_contrast;          // Linear contrast (-100 to 100, default 26)
 uniform float u_brightness;        // Brightness offset (-100 to 100, default -2)
 uniform float u_invert;            // 1.0 = invert (dark mandala subject on light ground)
 uniform float u_bgFloor;           // Noise threshold to clamp to zero (0.02)
-uniform float u_pinnedP2;          // 2nd percentile luma (pinned)
-uniform float u_pinnedP98;         // 98th percentile luma (pinned)
+uniform float u_pinnedP2;          // 2nd percentile luma (pinned 0.086)
+uniform float u_pinnedP98;         // 98th percentile luma (pinned 0.741)
 
 // Theming & Colors
 uniform vec3 u_groundColor;        // Warm sand background
@@ -39,6 +38,44 @@ uniform float u_pointerActive;     // 1.0 when active, 0.0 when idle
 uniform int u_warpMode;            // 0: twist, 1: lean, 2: scatter, 3: none
 uniform float u_warpStrength;      // Warp magnitude (9.0)
 uniform float u_time;              // Elapsed time in seconds
+
+// Exact 8x8 Bayer Ordered Threshold Function (eliminates texture lookup seam artifacts)
+float getBayer8(vec2 p) {
+  int x = int(mod(p.x, 8.0));
+  int y = int(mod(p.y, 8.0));
+  
+  if (y == 0) {
+    if (x == 0) return 0.0; if (x == 1) return 32.0; if (x == 2) return 8.0; if (x == 3) return 40.0;
+    if (x == 4) return 2.0; if (x == 5) return 34.0; if (x == 6) return 10.0; return 42.0;
+  }
+  if (y == 1) {
+    if (x == 0) return 48.0; if (x == 1) return 16.0; if (x == 2) return 56.0; if (x == 3) return 24.0;
+    if (x == 4) return 50.0; if (x == 5) return 18.0; if (x == 6) return 58.0; return 26.0;
+  }
+  if (y == 2) {
+    if (x == 0) return 12.0; if (x == 1) return 44.0; if (x == 2) return 4.0; if (x == 3) return 36.0;
+    if (x == 4) return 14.0; if (x == 5) return 46.0; if (x == 6) return 6.0; return 38.0;
+  }
+  if (y == 3) {
+    if (x == 0) return 60.0; if (x == 1) return 28.0; if (x == 2) return 52.0; if (x == 3) return 20.0;
+    if (x == 4) return 62.0; if (x == 5) return 30.0; if (x == 6) return 54.0; return 22.0;
+  }
+  if (y == 4) {
+    if (x == 0) return 3.0; if (x == 1) return 35.0; if (x == 2) return 11.0; if (x == 3) return 43.0;
+    if (x == 4) return 1.0; if (x == 5) return 33.0; if (x == 6) return 9.0; return 41.0;
+  }
+  if (y == 5) {
+    if (x == 0) return 51.0; if (x == 1) return 19.0; if (x == 2) return 59.0; if (x == 3) return 27.0;
+    if (x == 4) return 49.0; if (x == 5) return 17.0; if (x == 6) return 57.0; return 25.0;
+  }
+  if (y == 6) {
+    if (x == 0) return 15.0; if (x == 1) return 47.0; if (x == 2) return 7.0; if (x == 3) return 39.0;
+    if (x == 4) return 13.0; if (x == 5) return 45.0; if (x == 6) return 5.0; return 37.0;
+  }
+  // y == 7
+  if (x == 0) return 63.0; if (x == 1) return 31.0; if (x == 2) return 55.0; if (x == 3) return 23.0;
+  if (x == 4) return 61.0; if (x == 5) return 29.0; if (x == 6) return 53.0; return 21.0;
+}
 
 void main() {
   vec2 pixelCoord = gl_FragCoord.xy;
@@ -55,7 +92,7 @@ void main() {
     float warpRadiusGrid = (0.6 * max(u_resolution.x, u_resolution.y)) / u_pixelSize;
     if (dist < warpRadiusGrid && dist > 0.001) {
       float s = 1.0 - (dist / warpRadiusGrid);
-      float falloff = s * s * (3.0 - 2.0 * s); // smoothstep curve
+      float falloff = s * s * (3.0 - 2.0 * s); // cubic smoothstep curve
 
       if (u_warpMode == 0) { // Twist
         float angle = atan(delta.y, delta.x);
@@ -120,8 +157,7 @@ void main() {
   }
 
   // 8x8 Bayer Ordered Dither lookup
-  vec2 bayerUV = (mod(cellCoord, 8.0) + 0.5) / 8.0;
-  float threshold = texture2D(u_bayerTexture, bayerUV).r;
+  float threshold = getBayer8(cellCoord) / 64.0;
 
   float N = max(2.0, u_levels);
   float v = norm * (N - 1.0);

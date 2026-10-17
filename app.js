@@ -1,9 +1,9 @@
 import { DitherEngine } from './dither.js';
 
-// Configuration for Production Corporate Site
+// Configuration for Production Site
 const CONFIG = {
   totalFrames: 110,
-  frameRate: 11, // 11 fps matching extraction rate
+  frameRate: 11, // 11 fps matching sequence extraction
   crossfadeWindow: 8, // 8-frame seamless loop crossfade
   framePathPattern: (idx) => `frames/${String(idx).padStart(3, '0')}.webp`,
   theme: {
@@ -25,12 +25,12 @@ class SandmagicSite {
       levels: 4,
       contrast: 26,
       brightness: -2,
-      invert: true, // Subject (sand mandala) is dark on light beach
+      invert: true,
       bgFloor: 0.02,
       colorMode: 'blended',
       colorMix: 0.25,
       shape: 'circle',
-      warpMode: 'twist', // Rotational twist for radial mandala
+      warpMode: 'twist',
       warpStrength: 9.0,
       groundColor: CONFIG.theme.ground,
       inkColor: CONFIG.theme.ink
@@ -38,9 +38,8 @@ class SandmagicSite {
 
     this.frames = [];
     this.currentFrameIdx = 0;
-    this.isPlaying = true;
     this.isHeroVisible = true;
-    this.lastFrameTime = 0;
+    this.lastFrameTime = performance.now();
     this.frameIntervalMs = 1000 / CONFIG.frameRate;
 
     this.initHeroIntersection();
@@ -51,6 +50,14 @@ class SandmagicSite {
     this.initProjectEstimator();
     this.initSmoothScroll();
     this.initViewTransitions();
+  }
+
+  getMaxAvailableFrame() {
+    let count = 0;
+    while (count < CONFIG.totalFrames && this.frames[count]) {
+      count++;
+    }
+    return count;
   }
 
   initHeroIntersection() {
@@ -92,8 +99,8 @@ class SandmagicSite {
       console.warn('Initial frame load:', e);
     }
 
-    // 2. Load remaining frames in background with high concurrency (non-blocking)
-    const concurrency = 6;
+    // 2. Sequential Ordered Background Loading (prevents out-of-order jitter)
+    const concurrency = 4;
     let nextIdx = 2;
 
     const worker = async () => {
@@ -128,8 +135,9 @@ class SandmagicSite {
     const updatePointer = (clientX, clientY, active) => {
       if (!this.canvas) return;
       const rect = this.canvas.getBoundingClientRect();
-      const x = (clientX - rect.left) * this.dpr;
-      const y = (clientY - rect.top) * this.dpr;
+      const dpr = this.dpr || 1;
+      const x = (clientX - rect.left) * dpr;
+      const y = (clientY - rect.top) * dpr;
       this.engine.setPointer(x, y, active);
     };
 
@@ -162,18 +170,22 @@ class SandmagicSite {
 
   startAnimationLoop() {
     const loop = (timestamp) => {
-      if (this.isHeroVisible && this.frames.length > 0) {
+      if (this.isHeroVisible && this.frames[0]) {
+        // Step sequence frame on 11 FPS timer
         const elapsed = timestamp - this.lastFrameTime;
         if (elapsed >= this.frameIntervalMs) {
           this.lastFrameTime = timestamp - (elapsed % this.frameIntervalMs);
 
-          // Advance to next frame if available
-          const loadedFramesCount = this.frames.filter(Boolean).length;
-          if (loadedFramesCount > 1) {
-            this.currentFrameIdx = (this.currentFrameIdx + 1) % loadedFramesCount;
+          const maxContiguous = this.getMaxAvailableFrame();
+          if (maxContiguous >= CONFIG.totalFrames) {
+            this.currentFrameIdx = (this.currentFrameIdx + 1) % CONFIG.totalFrames;
+          } else if (maxContiguous > 1) {
+            this.currentFrameIdx = (this.currentFrameIdx + 1) % maxContiguous;
           }
-          this.renderCurrentFrame();
         }
+
+        // Render WebGL shader at 60+ FPS for buttery-smooth mouse tracking
+        this.renderCurrentFrame();
       }
 
       requestAnimationFrame(loop);
@@ -190,13 +202,13 @@ class SandmagicSite {
     let crossfadeAlpha = 0.0;
 
     // Seamless 8-frame crossfade wrap
-    if (CONFIG.totalFrames > CONFIG.crossfadeWindow) {
+    const maxContiguous = this.getMaxAvailableFrame();
+    if (maxContiguous >= CONFIG.totalFrames) {
       const fadeStart = CONFIG.totalFrames - CONFIG.crossfadeWindow;
       if (this.currentFrameIdx >= fadeStart) {
         const offset = this.currentFrameIdx - fadeStart;
         crossfadeAlpha = (offset + 1) / (CONFIG.crossfadeWindow + 1);
-        const targetWrapIdx = offset % this.frames.length;
-        crossfadeFrame = this.frames[targetWrapIdx] || this.frames[0];
+        crossfadeFrame = this.frames[offset] || this.frames[0];
       }
     }
 
@@ -211,7 +223,6 @@ class SandmagicSite {
   }
 
   initViewTransitions() {
-    // Intercept internal page navigations for seamless transitions
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a');
       if (!link) return;

@@ -5,7 +5,7 @@ const CONFIG = {
   totalFrames: 110,
   frameRate: 11, // 11 fps matching extraction rate
   crossfadeWindow: 8, // 8-frame seamless loop crossfade
-  framePathPattern: (idx) => `frames/${String(idx).padStart(3, '0')}.png`,
+  framePathPattern: (idx) => `frames/${String(idx).padStart(3, '0')}.webp`,
   theme: {
     ground: '#f5ede2', // Warm desert / beach sand
     ink: '#261e18'     // Deep charcoal / obsidian ink
@@ -16,9 +16,8 @@ class SandmagicSite {
   constructor() {
     this.canvas = document.getElementById('ditherCanvas');
     if (!this.canvas) return;
-    this.ctx = this.canvas.getContext('2d', { alpha: false });
 
-    // Initialize Dither Engine with exact pinned settings from user specification
+    // Initialize Hardware-Accelerated WebGL/GLSL Dither Engine
     this.engine = new DitherEngine({
       pixelSize: 10,
       spacing: 0.35,
@@ -51,6 +50,7 @@ class SandmagicSite {
     this.startAnimationLoop();
     this.initProjectEstimator();
     this.initSmoothScroll();
+    this.initViewTransitions();
   }
 
   initHeroIntersection() {
@@ -83,7 +83,7 @@ class SandmagicSite {
   async loadFramesProgressively() {
     const total = CONFIG.totalFrames;
 
-    // Load first frame immediately for instant visual
+    // 1. Instant First Frame: 50KB WebP loads in < 50ms
     try {
       const firstImg = await this.loadImage(1);
       this.frames[0] = firstImg;
@@ -92,8 +92,8 @@ class SandmagicSite {
       console.warn('Initial frame load:', e);
     }
 
-    // Load remaining frames in background with pool concurrency
-    const concurrency = 4;
+    // 2. Load remaining frames in background with high concurrency (non-blocking)
+    const concurrency = 6;
     let nextIdx = 2;
 
     const worker = async () => {
@@ -125,7 +125,6 @@ class SandmagicSite {
     window.addEventListener('resize', () => this.resizeCanvas());
 
     // Pointer warp tracking across hero container
-    const heroEl = document.getElementById('hero');
     const updatePointer = (clientX, clientY, active) => {
       if (!this.canvas) return;
       const rect = this.canvas.getBoundingClientRect();
@@ -138,14 +137,20 @@ class SandmagicSite {
       if (this.isHeroVisible) {
         updatePointer(e.clientX, e.clientY, true);
       }
-    });
+    }, { passive: true });
 
     window.addEventListener('mouseleave', () => {
       this.engine.setPointer(-9999, -9999, false);
     });
 
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0 && this.isHeroVisible) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY, true);
+      }
+    }, { passive: true });
+
     window.addEventListener('touchmove', (e) => {
-      if (this.isHeroVisible && e.touches.length > 0) {
+      if (e.touches.length > 0 && this.isHeroVisible) {
         updatePointer(e.touches[0].clientX, e.touches[0].clientY, true);
       }
     }, { passive: true });
@@ -157,13 +162,16 @@ class SandmagicSite {
 
   startAnimationLoop() {
     const loop = (timestamp) => {
-      if (this.isPlaying && this.isHeroVisible) {
+      if (this.isHeroVisible && this.frames.length > 0) {
         const elapsed = timestamp - this.lastFrameTime;
         if (elapsed >= this.frameIntervalMs) {
           this.lastFrameTime = timestamp - (elapsed % this.frameIntervalMs);
-          this.currentFrameIdx = (this.currentFrameIdx + 1) % CONFIG.totalFrames;
-          this.renderCurrentFrame();
-        } else if (this.engine.pointer.active || this.engine.pointer.x > -1000) {
+
+          // Advance to next frame if available
+          const loadedFramesCount = this.frames.filter(Boolean).length;
+          if (loadedFramesCount > 1) {
+            this.currentFrameIdx = (this.currentFrameIdx + 1) % loadedFramesCount;
+          }
           this.renderCurrentFrame();
         }
       }
@@ -175,7 +183,7 @@ class SandmagicSite {
   }
 
   renderCurrentFrame() {
-    const frame = this.frames[this.currentFrameIdx];
+    const frame = this.frames[this.currentFrameIdx] || this.frames[0];
     if (!frame) return;
 
     let crossfadeFrame = null;
@@ -193,7 +201,7 @@ class SandmagicSite {
     }
 
     this.engine.renderFrame(
-      this.ctx,
+      this.canvas,
       this.canvas.width,
       this.canvas.height,
       frame,
@@ -202,8 +210,25 @@ class SandmagicSite {
     );
   }
 
+  initViewTransitions() {
+    // Intercept internal page navigations for seamless transitions
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+      if (link.origin !== window.location.origin) return;
+
+      if (document.startViewTransition) {
+        e.preventDefault();
+        document.startViewTransition(() => {
+          window.location.href = href;
+        });
+      }
+    });
+  }
+
   initSmoothScroll() {
-    // Smooth scrolling for anchor navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
@@ -232,7 +257,7 @@ class SandmagicSite {
       scaleVal.textContent = `${meters} meters`;
 
       let hours = Math.round((meters / 100) * 1.8 + 2.5);
-      if (hours > 6) hours = 6; // Max low-tide window
+      if (hours > 6) hours = 6;
       outWindow.textContent = `${hours}h low-tide window`;
 
       let teamSize = Math.max(2, Math.round(meters / 60));

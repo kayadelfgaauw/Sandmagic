@@ -364,7 +364,7 @@
       <div id="vrPlateSwitcher" class="vr-plate-switcher"></div>
       <div class="vr-controls">
         <button class="vr-icon-btn" id="vrZoomBtn" onclick="toggleHomeZoom()">+ Zoom</button>
-        <button class="vr-icon-btn" onclick="closeHomeViewer()">Close</button>
+        <button class="vr-icon-btn" onclick="closeHomeViewer()">Close ✕</button>
       </div>
     </div>
 
@@ -384,7 +384,7 @@
       </div>
       <div class="vr-meta-right">
         <span id="vrLocationYear"></span>
-        <span id="vrDimensions" style="color: var(--accent-gold);"></span>
+        <span id="vrDimensions" style="color: var(--accent-color);"></span>
       </div>
     </div>
   </div>
@@ -597,7 +597,7 @@
         item.images.forEach((src, i) => {
           const b = document.createElement('button');
           b.className = 'vr-plate-btn' + (homeMediaType === 'plate' && i === homePlateIdx ? ' active' : '');
-          b.textContent = `Photo ${i + 1}`;
+          b.innerHTML = `<img src="${src}" alt="" class="vr-plate-btn-thumb" loading="lazy"><span>Photo ${i + 1}</span>`;
           b.onclick = (e) => {
             e.stopPropagation();
             homeMediaType = 'plate';

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dialogue — Studio Remko Delfgaauw · SANDMAGIC</title>
-  <meta name="description" content="Direct correspondence with Dutch land artist Remko Delfgaauw for museum exhibitions, archival photography, and curatorial dialogue.">
+  <title>Contact — Remko &amp; René · SANDMAGIC</title>
+  <meta name="description" content="Get in touch with Remko Delfgaauw and René Bosma for questions, prints, exhibitions, or collaborations.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -98,7 +98,7 @@
 </head>
 <body>
 
-  <!-- Minimalist Museum Header -->
+  <!-- Header -->
   <header class="site-header">
     <a href="index.html" class="brand">
       <span class="brand-glyph">✦</span>
@@ -106,61 +106,94 @@
     </a>
 
     <nav class="nav-links">
-      <a href="index.html">Sanctuary</a>
-      <a href="projects.html">Exhibition</a>
-      <a href="about.html">The Artist</a>
-      <a href="contact.html" class="active">Dialogue</a>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
     </nav>
 
-    <div class="header-meta">
-      <span>Zierikzee · Zeeland</span>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteDropdown">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-burger" aria-hidden="true">
+        <span class="burger-line line-1"></span>
+        <span class="burger-line line-2"></span>
+      </span>
+    </button>
+
+    <!-- Responsive Dropdown Menu -->
+    <div class="site-dropdown-menu" id="siteDropdown" aria-hidden="true">
+      <div class="dropdown-inner">
+        <nav class="dropdown-nav-list" aria-label="Mobile navigation">
+          <a href="index.html" class="dropdown-link" data-page="index">
+            <span class="dropdown-title">Home</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="projects.html" class="dropdown-link" data-page="projects">
+            <span class="dropdown-title">Works</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="about.html" class="dropdown-link" data-page="about">
+            <span class="dropdown-title">About</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="contact.html" class="dropdown-link active" data-page="contact">
+            <span class="dropdown-title">Contact</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+        </nav>
+      </div>
     </div>
   </header>
+
+  <div class="site-dropdown-backdrop" id="dropdownBackdrop" aria-hidden="true"></div>
 
   <!-- Header -->
   <section class="exhibition-header">
     <div class="container-wide">
       <div class="exhibition-header-top">
         <div>
-          <div class="section-label">Studio & Archive</div>
-          <h1 class="section-heading" style="margin-bottom: 0;">Curatorial Dialogue</h1>
+          <div class="section-label">Get in Touch</div>
+          <h1 class="section-heading" style="margin-bottom: 0;">Contact</h1>
         </div>
         <p class="section-subheading" style="max-width: 520px; font-style: italic;">
-          For museum exhibitions, archival aerial prints, documentary inquiries, or personal correspondence with Remko Delfgaauw.
+          Have a question about a work, interested in a print or exhibition, or just want to say hello? Feel free to reach out directly.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Correspondence Body -->
+  <!-- Contact Body -->
   <main class="dialogue-section">
     <div class="container-wide">
       <div class="dialogue-grid">
 
         <div class="correspondence-list">
           <div class="correspondence-item">
-            <span class="corr-label">Direct Electronic Mail</span>
+            <span class="corr-label">Email</span>
             <a href="mailto:remko.delfgaauw@gmail.com" class="corr-value">remko.delfgaauw@gmail.com</a>
           </div>
 
           <div class="correspondence-item">
-            <span class="corr-label">Studio Telephone</span>
+            <span class="corr-label">Phone</span>
             <a href="tel:+31651267457" class="corr-value">+31 (0)6 51 267 457</a>
           </div>
 
           <div class="correspondence-item">
-            <span class="corr-label">Primary Intertidal Canvas</span>
-            <span class="corr-value" style="font-size: 1.35rem;">Brouwersdam & Schouwen-Duiveland, Zeeland</span>
+            <span class="corr-label">Location</span>
+            <span class="corr-value" style="font-size: 1.35rem;">Zierikzee & Brouwersdam, Zeeland</span>
           </div>
 
           <div class="correspondence-item">
-            <span class="corr-label">Archival & Social</span>
+            <span class="corr-label">Social</span>
             <a href="https://www.linkedin.com/in/remko-delfgaauw-16b56711/" target="_blank" rel="noopener noreferrer" class="corr-value" style="font-size: 1.35rem;">LinkedIn — Remko Delfgaauw ↗</a>
           </div>
         </div>
 
-        <form class="minimal-form" onsubmit="event.preventDefault(); window.location.href='mailto:remko.delfgaauw@gmail.com?subject=Sandmagic%20Correspondence%20—%20'+encodeURIComponent(document.getElementById('cName').value)+'&body='+encodeURIComponent('From: '+document.getElementById('cName').value+' ('+document.getElementById('cEmail').value+')\n\n'+document.getElementById('cMsg').value);">
-          <div class="section-label" style="margin-bottom: 0;">Direct Note to the Artist</div>
+        <form class="minimal-form" onsubmit="event.preventDefault(); window.location.href='mailto:remko.delfgaauw@gmail.com?subject=Sandmagic%20Message%20—%20'+encodeURIComponent(document.getElementById('cName').value)+'&body='+encodeURIComponent('From: '+document.getElementById('cName').value+' ('+document.getElementById('cEmail').value+')\n\n'+document.getElementById('cMsg').value);">
+          <div class="section-label" style="margin-bottom: 0;">Send a Message</div>
 
           <div class="minimal-field">
             <label for="cName">Name</label>
@@ -168,16 +201,16 @@
           </div>
 
           <div class="minimal-field">
-            <label for="cEmail">Electronic Mail</label>
-            <input type="email" id="cEmail" placeholder="name@domain.com" required>
+            <label for="cEmail">Email</label>
+            <input type="email" id="cEmail" placeholder="name@example.com" required>
           </div>
 
           <div class="minimal-field">
-            <label for="cMsg">Correspondence</label>
-            <textarea id="cMsg" rows="4" placeholder="Write your reflection or inquiry…" required></textarea>
+            <label for="cMsg">Message</label>
+            <textarea id="cMsg" rows="4" placeholder="Write your message…" required></textarea>
           </div>
 
-          <button type="submit" class="pill-btn primary full-width">Transmit Correspondence ⟶</button>
+          <button type="submit" class="pill-btn primary full-width">Send Message ⟶</button>
         </form>
 
       </div>
@@ -193,39 +226,40 @@
           <span class="brand-name">SANDMAGIC</span>
         </div>
         <p class="footer-tagline">
-          “Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea.”
+          “Drawn in grain, motion, and sand—large enough to be seen from the sky, made to return to nature.”
         </p>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Exhibition</span>
-        <a href="index.html">Sanctuary (Home)</a>
-        <a href="projects.html">Catalogue Raisonné (35)</a>
-        <a href="about.html">The Artist</a>
-        <a href="contact.html">Curatorial Dialogue</a>
+        <span class="footer-heading">Navigation</span>
+        <a href="index.html">Home</a>
+        <a href="projects.html">All Works (35)</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Landmark Plates</span>
-        <a href="projects.html?work=firehorse">№ 01 — The Fire Horse (2025)</a>
-        <a href="projects.html?work=droplet-2023">№ 02 — A Drop in the Sea (2023)</a>
-        <a href="projects.html?work=atlas-2009">№ 03 — Project Atlas (530m)</a>
-        <a href="projects.html?work=act-as-one-2021">№ 11 — Act As One (Kinetic)</a>
+        <span class="footer-heading">Highlights</span>
+        <a href="projects.html?work=firehorse">The Fire Horse (2025)</a>
+        <a href="projects.html?work=droplet-2023">A Drop in the Sea (2023)</a>
+        <a href="projects.html?work=atlas-2009">Project Atlas (2009)</a>
+        <a href="projects.html?work=act-as-one-2021">Act As One (2021)</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Studio Remko Delfgaauw</span>
+        <span class="footer-heading">Remko &amp; René</span>
         <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
         <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
-        <span class="footer-address">Zierikzee & Brouwersdam<br>Zeeland, The Netherlands</span>
+        <span class="footer-address">Zierikzee &amp; Brouwersdam<br>Zeeland, The Netherlands</span>
       </div>
     </div>
 
     <div class="container-wide footer-bottom">
-      <span>© 1997–2026 Remko Delfgaauw · Sandmagic Archive</span>
-      <span>Zero Permanent Footprint</span>
+      <span>© 1997–2026 Remko Delfgaauw &amp; René Bosma · Sandmagic</span>
     </div>
   </footer>
 
+  <script type="module" src="nav.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

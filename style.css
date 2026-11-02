@@ -41,9 +41,40 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
   background-color: var(--bg-ground);
+}
+
+/* Lenis Smooth Scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
 }
 
 body {
@@ -200,6 +231,216 @@ body::after {
 }
 
 /* ==========================================================================
+   Minimalist Museum Navigation & Responsive Dropdown
+   ========================================================================== */
+
+/* Toggle Button */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(244, 236, 225, 0.7);
+  border: 1px solid var(--border-glass);
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--ink-primary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: all 0.3s var(--ease-museum);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-toggle:hover {
+  background: var(--bg-surface);
+  border-color: var(--ink-primary);
+}
+
+.nav-toggle-burger {
+  position: relative;
+  width: 16px;
+  height: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.burger-line {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--ink-primary);
+  border-radius: 1px;
+  transition: transform 0.35s var(--ease-museum), background 0.3s ease;
+  transform-origin: center;
+}
+
+/* Active State for Button */
+.site-header.menu-open .nav-toggle {
+  background: var(--ink-primary);
+  color: var(--bg-ground);
+  border-color: var(--ink-primary);
+  box-shadow: 0 4px 12px rgba(28, 22, 18, 0.15);
+}
+
+.site-header.menu-open .burger-line {
+  background: var(--bg-ground);
+}
+
+.site-header.menu-open .burger-line.line-1 {
+  transform: translateY(4.25px) rotate(45deg);
+}
+
+.site-header.menu-open .burger-line.line-2 {
+  transform: translateY(-4.25px) rotate(-45deg);
+}
+
+/* Dropdown Container */
+.site-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(244, 236, 225, 0.97);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-bottom: 1px solid var(--border-strong);
+  box-shadow: 0 28px 50px rgba(28, 22, 18, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.35s var(--ease-museum),
+              transform 0.35s var(--ease-museum),
+              visibility 0.35s;
+  pointer-events: none;
+  max-height: calc(100vh - 72px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 101;
+}
+
+.site-header.menu-open .site-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Dim Backdrop */
+.site-dropdown-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 22, 18, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s;
+  pointer-events: none;
+  z-index: 95;
+}
+
+body.menu-open .site-dropdown-backdrop {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Dropdown Content */
+.dropdown-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.dropdown-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dropdown-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.25s var(--ease-museum);
+}
+
+.dropdown-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-primary);
+  line-height: 1.2;
+  transition: color 0.25s ease;
+}
+
+.dropdown-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink-subtle);
+  transition: transform 0.25s var(--ease-museum), color 0.25s ease;
+}
+
+.dropdown-link:hover {
+  background: rgba(28, 22, 18, 0.04);
+  border-color: var(--border-glass);
+  transform: translateX(4px);
+}
+
+.dropdown-link:hover .dropdown-arrow {
+  transform: translateX(4px);
+  color: var(--accent-color);
+}
+
+/* Active Page State */
+.dropdown-link.active {
+  background: rgba(140, 63, 35, 0.07);
+  border-color: rgba(140, 63, 35, 0.22);
+}
+
+.dropdown-link.active .dropdown-title {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.dropdown-link.active .dropdown-arrow {
+  color: var(--accent-color);
+}
+
+/* Staggered entrance animation when menu opens */
+.site-header.menu-open .dropdown-link {
+  animation: dropdownItemFade 0.4s var(--ease-museum) backwards;
+}
+
+.site-header.menu-open .dropdown-link:nth-child(1) { animation-delay: 0.04s; }
+.site-header.menu-open .dropdown-link:nth-child(2) { animation-delay: 0.08s; }
+.site-header.menu-open .dropdown-link:nth-child(3) { animation-delay: 0.12s; }
+.site-header.menu-open .dropdown-link:nth-child(4) { animation-delay: 0.16s; }
+
+@keyframes dropdownItemFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
    Typography & Buttons
    ========================================================================== */
 
@@ -207,21 +448,12 @@ body::after {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 400;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent-color);
   margin-bottom: 1rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-}
-
-.section-label::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent-color);
 }
 
 .section-heading {
@@ -828,10 +1060,6 @@ body::after {
   color: var(--accent-gold);
 }
 
-.obsidian-section .section-label::before {
-  background: var(--accent-gold);
-}
-
 .obsidian-section .section-heading {
   color: var(--ink-ivory);
 }
@@ -1229,20 +1457,28 @@ body::after {
 
 .vr-plate-switcher {
   display: flex;
-  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  max-width: 62vw;
 }
 
 .vr-plate-btn {
   background: transparent;
   border: 1px solid var(--border-obsidian);
-  color: rgba(244, 236, 225, 0.6);
+  color: rgba(244, 236, 225, 0.65);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.16em;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 0.4rem 0.9rem;
+  padding: 0.38rem 0.78rem;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.vr-plate-btn.vr-film-btn {
+  border-color: rgba(212, 165, 116, 0.55);
+  color: var(--accent-gold);
 }
 
 .vr-plate-btn:hover,
@@ -1250,6 +1486,13 @@ body::after {
   background: var(--ink-ivory);
   color: var(--bg-obsidian);
   border-color: var(--ink-ivory);
+}
+
+.vr-plate-btn.vr-film-btn:hover,
+.vr-plate-btn.vr-film-btn.active {
+  background: var(--accent-gold);
+  color: var(--bg-obsidian);
+  border-color: var(--accent-gold);
 }
 
 .vr-controls {
@@ -1300,6 +1543,151 @@ body::after {
 .vr-main-img.zoomed {
   transform: scale(1.65);
   cursor: zoom-out;
+}
+
+.vr-main-img.hidden {
+  display: none !important;
+}
+
+.vr-video-container {
+  display: none;
+  width: min(82vw, 1240px);
+  aspect-ratio: 16 / 9;
+  max-height: 70vh;
+  background: #000;
+  border: 1px solid var(--border-obsidian);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+  position: relative;
+  z-index: 5;
+}
+
+.vr-video-container.active {
+  display: block;
+}
+
+.vr-video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Archival Media Strip (Multi-Plate Contact Sheet & Film Trigger on Gallery Cards) */
+.exhibit-media-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(28, 22, 18, 0.035);
+  border: 1px solid var(--border-glass);
+  flex-wrap: wrap;
+}
+
+.exhibit-thumbs-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.exhibit-strip-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-subtle);
+  margin-right: 0.35rem;
+}
+
+.exhibit-thumb-btn {
+  position: relative;
+  width: 58px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  background: #18130f;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.exhibit-thumb-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-color);
+}
+
+.exhibit-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.exhibit-thumb-num {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  background: rgba(17, 13, 10, 0.82);
+  color: var(--ink-ivory);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  padding: 1px 4px;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+}
+
+.exhibit-films-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.exhibit-film-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--ink-primary);
+  color: var(--bg-ground);
+  border: 1px solid var(--ink-primary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.48rem 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.exhibit-film-btn:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--ink-ivory);
+}
+
+.plate-film-badge {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(17, 13, 10, 0.86);
+  backdrop-filter: blur(10px);
+  color: var(--accent-gold);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.48rem 0.9rem;
+  border: 1px solid rgba(212, 165, 116, 0.45);
+  z-index: 5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.plate-film-badge:hover {
+  background: var(--accent-gold);
+  color: var(--bg-obsidian);
 }
 
 .vr-nav-arrow {
@@ -1504,20 +1892,34 @@ body::after {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .site-header {
     padding: 1rem 1.5rem;
   }
   .header-meta {
-    display: none;
+    display: none !important;
   }
   .nav-links {
-    gap: 1.2rem;
+    display: none !important;
   }
-  .nav-links a {
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
+  .nav-toggle {
+    display: inline-flex !important;
   }
+}
+
+@media (min-width: 901px) {
+  .nav-toggle {
+    display: none !important;
+  }
+  .site-dropdown-menu {
+    display: none !important;
+  }
+  .site-dropdown-backdrop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
   .hero-section {
     padding: 0 1.5rem 2.5rem;
   }

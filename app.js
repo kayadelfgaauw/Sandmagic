@@ -1,4 +1,6 @@
+import Lenis from 'lenis';
 import { DitherEngine } from './dither.js';
+import './nav.js';
 
 // Configuration for Production Site
 const CONFIG = {
@@ -14,6 +16,10 @@ const CONFIG = {
 
 class SandmagicSite {
   constructor() {
+    this.initSmoothScroll();
+    this.initViewTransitions();
+    this.initProjectEstimator();
+
     this.canvas = document.getElementById('ditherCanvas');
     if (!this.canvas) return;
 
@@ -47,9 +53,6 @@ class SandmagicSite {
     this.bindEvents();
     this.loadFramesProgressively();
     this.startAnimationLoop();
-    this.initProjectEstimator();
-    this.initSmoothScroll();
-    this.initViewTransitions();
   }
 
   getMaxAvailableFrame() {
@@ -240,17 +243,17 @@ class SandmagicSite {
   }
 
   initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        const targetEl = document.querySelector(targetId);
-        if (targetEl) {
-          e.preventDefault();
-          targetEl.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+    this.lenis = new Lenis({
+      autoRaf: true,
+      anchors: true,
+      duration: 1.25,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5
     });
+
+    window.lenis = this.lenis;
   }
 
   initProjectEstimator() {

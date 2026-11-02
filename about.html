@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Artist — Remko Delfgaauw · SANDMAGIC</title>
-  <meta name="description" content="Biography and artistic trajectory of Dutch land artist Remko Delfgaauw, 2-time Guinness World Record holder and creator of monumental ephemeral earthworks.">
+  <title>About — Remko &amp; René · SANDMAGIC</title>
+  <meta name="description" content="The story of co-creators Remko Delfgaauw and René Bosma, 2-time Guinness World Record holders and creators of crop circles, living animations, and large-scale beach drawings.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -83,7 +83,7 @@
 </head>
 <body>
 
-  <!-- Minimalist Museum Header -->
+  <!-- Header -->
   <header class="site-header">
     <a href="index.html" class="brand">
       <span class="brand-glyph">✦</span>
@@ -91,59 +91,92 @@
     </a>
 
     <nav class="nav-links">
-      <a href="index.html">Sanctuary</a>
-      <a href="projects.html">Exhibition</a>
-      <a href="about.html" class="active">The Artist</a>
-      <a href="contact.html">Dialogue</a>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Works</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="header-meta">
-      <span>Remko Delfgaauw · Monograph</span>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteDropdown">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-burger" aria-hidden="true">
+        <span class="burger-line line-1"></span>
+        <span class="burger-line line-2"></span>
+      </span>
+    </button>
+
+    <!-- Responsive Dropdown Menu -->
+    <div class="site-dropdown-menu" id="siteDropdown" aria-hidden="true">
+      <div class="dropdown-inner">
+        <nav class="dropdown-nav-list" aria-label="Mobile navigation">
+          <a href="index.html" class="dropdown-link" data-page="index">
+            <span class="dropdown-title">Home</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="projects.html" class="dropdown-link" data-page="projects">
+            <span class="dropdown-title">Works</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="about.html" class="dropdown-link active" data-page="about">
+            <span class="dropdown-title">About</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="contact.html" class="dropdown-link" data-page="contact">
+            <span class="dropdown-title">Contact</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+        </nav>
+      </div>
     </div>
   </header>
+
+  <div class="site-dropdown-backdrop" id="dropdownBackdrop" aria-hidden="true"></div>
 
   <!-- Artist Header -->
   <section class="exhibition-header">
     <div class="container-wide">
       <div class="exhibition-header-top">
         <div>
-          <div class="section-label">The Artist · Born in Zeeland</div>
-          <h1 class="section-heading" style="margin-bottom: 0;">Remko Delfgaauw</h1>
+          <div class="section-label">About the Creators</div>
+          <h1 class="section-heading" style="margin-bottom: 0;">Remko &amp; René</h1>
         </div>
         <p class="section-subheading" style="max-width: 560px; font-style: italic;">
-          “When you draw on the sand knowing the sea will claim it within hours, ego falls away. What matters is the purity of the gesture.”
+          “Whether we are flattening grain at night, moving step by step with a hundred people, or raking sand before the tide comes in—it’s never about keeping what you make. It’s about creating something extraordinary together.”
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Editorial Portrait & Essence -->
+  <!-- Portrait & Story -->
   <section class="artist-sanctuary" style="padding: 6rem 0;">
     <div class="container-wide">
       <div class="artist-editorial-grid">
         <div>
           <div class="artist-portrait-frame">
-            <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw and collective on the Zeeland shore">
+            <img src="assets/images/mandala_zen.webp" alt="Remko Delfgaauw, René Bosma and friends on the Zeeland beach">
           </div>
           <div class="artist-portrait-caption">
-            <span>Remko Delfgaauw (Center) with Collaborators</span>
-            <span>Brouwersdam, North Sea</span>
+            <span>Remko, René &amp; friends</span>
+            <span>Brouwersdam, Zeeland</span>
           </div>
         </div>
 
         <div>
-          <div class="section-label">Artistic Essence</div>
+          <div class="section-label">The Story</div>
           <h2 class="section-heading" style="font-size: clamp(1.8rem, 3vw, 2.8rem);">
-            The Architecture of Letting Go
+            The Art of Letting Go
           </h2>
           <blockquote class="artist-editorial-quote">
-            Nearly three decades of dialogue between sacred geometry, human consciousness, and the elemental forces of tide and earth.
+            Nearly thirty years of crop circles, living animations, and beach drawings—working with the rhythm of the seasons, the wind, and the tides.
           </blockquote>
           <p class="artist-editorial-note">
-            Beginning in 1997 with hand-flattened crop formations in the fields of Dreischor, Remko Delfgaauw’s work evolved from nocturnal geometry into world-record monumental earthworks—culminating in the 530-meter <strong>Project Atlas</strong> (2009) and the kinetic human choreography of <strong>Act As One</strong> (2021). Today, the vast intertidal sandbanks of Zeeland and Brittany serve as his primary canvas.
+            It started in 1997 in the fields of Dreischor, flattening grain by hand with wooden boards and measuring ropes. Over the years, co-creators <strong>Remko Delfgaauw</strong> and <strong>René Bosma</strong> turned those night-time crop circles into world-record projects—like the 530-meter <strong>Project Atlas</strong> (2009) and the living stop-motion animation <strong>Act As One</strong> (2021)—alongside monumental beach drawings across Zeeland, Brittany, and California.
           </p>
           <a href="projects.html" class="museum-link">
-            <span>Explore the 35 Archived Works</span>
+            <span>See All 35 Works</span>
             <span class="arrow">⟶</span>
           </a>
         </div>
@@ -154,15 +187,15 @@
   <!-- Visual Chronology (1997–2026) -->
   <section class="artist-chronology">
     <div class="container-wide">
-      <div class="section-label">Chronological Milestones · 1997—2026</div>
-      <h2 class="section-heading" style="margin-bottom: 3.5rem;">Five Chapters in Earth & Sand</h2>
+      <div class="section-label">1997 — 2026</div>
+      <h2 class="section-heading" style="margin-bottom: 3.5rem;">Highlights Over the Years</h2>
 
       <div class="chrono-row">
         <div class="chrono-year">1997</div>
         <div>
-          <h3 class="chrono-title">The Golden Gate — First Formation</h3>
+          <h3 class="chrono-title">The Golden Gate — Where It Began</h3>
           <p class="chrono-whisper">
-            In the fields of Dreischor, Remko lays his first geometric crop formation using wooden boards and survey rope—discovering the quiet power of drawings visible only from the sky.
+            In the fields of Dreischor, Remko makes his first crop circle using wooden boards and rope—discovering the magic of drawings you can only really see from the sky.
           </p>
         </div>
         <a href="projects.html?work=golden-gate-1997" class="chrono-plate">
@@ -173,10 +206,10 @@
       <div class="chrono-row">
         <div class="chrono-year">2009</div>
         <div>
-          <span class="chrono-badge">Guinness World Record I</span>
+          <span class="chrono-badge">Guinness World Record</span>
           <h3 class="chrono-title">Project Atlas — 530 Meters</h3>
           <p class="chrono-whisper">
-            Orchestrating a dedicated team in Wilhelminadorp, Remko creates the largest crop formation in human history: a 530-by-450-meter winged Vitruvian figure certified by Guinness World Records.
+            Together with a dedicated team in Wilhelminadorp, Remko creates the largest crop figure ever made: a 530-by-450-meter butterfly man, officially recognized by Guinness World Records.
           </p>
         </div>
         <a href="projects.html?work=atlas-2009" class="chrono-plate">
@@ -187,9 +220,9 @@
       <div class="chrono-row">
         <div class="chrono-year">2016</div>
         <div>
-          <h3 class="chrono-title">Pacific & North Sea Horizons</h3>
+          <h3 class="chrono-title">From Fields to the Ocean</h3>
           <p class="chrono-whisper">
-            Transitioning from inland harvest fields to the open ocean, inscriptions appear along the Sonoma coast north of San Francisco and the wide sandbanks of the Brouwersdam.
+            Trading harvest fields for the coast, drawings appear along the Pacific beach north of San Francisco and on the wide sandbanks of the Brouwersdam.
           </p>
         </div>
         <a href="projects.html?work=california-heartbeat" class="chrono-plate">
@@ -200,10 +233,10 @@
       <div class="chrono-row">
         <div class="chrono-year">2021</div>
         <div>
-          <span class="chrono-badge">Guinness World Record II</span>
+          <span class="chrono-badge">Guinness World Record</span>
           <h3 class="chrono-title">Act As One — Living Animation</h3>
           <p class="chrono-whisper">
-            Together with René Bosma and Ron van Jeveren, over 150 participants become living pixels in a synchronized aerial stop-motion artwork in Zierikzee, earning a second Guinness World Record.
+            Together with René Bosma and Ron van Jeveren, more than 150 people form a living stop-motion animation filmed from above in Zierikzee—earning a second Guinness World Record.
           </p>
         </div>
         <a href="projects.html?work=act-as-one-2021" class="chrono-plate">
@@ -214,9 +247,9 @@
       <div class="chrono-row">
         <div class="chrono-year">2023–26</div>
         <div>
-          <h3 class="chrono-title">The Watersnood Trilogy & The Fire Horse</h3>
+          <h3 class="chrono-title">Watersnood Commemorations & The Fire Horse</h3>
           <p class="chrono-whisper">
-            Monumental commemorative works for the 1953 Flood Museum (<em>1,836 Crosses</em>, <em>A Drop in the Sea</em>, <em>Dientje Kramer</em>) and the 2025–2026 <em>Fire Horse</em> and Brittany mandalas.
+            Large beach drawings for the 1953 Flood Museum (<em>1,836 Crosses</em>, <em>A Drop in the Sea</em>, <em>Dientje Kramer</em>), followed by new works in Brittany and <em>The Fire Horse</em>.
           </p>
         </div>
         <a href="projects.html?work=firehorse" class="chrono-plate">
@@ -227,17 +260,17 @@
     </div>
   </section>
 
-  <!-- Portal to Exhibition -->
+  <!-- Portal to Works -->
   <section class="archive-portal">
     <div class="container">
       <div class="section-label" style="color: var(--accent-gold); justify-content: center;">
-        Complete Archive
+        Archive
       </div>
       <h2 class="archive-portal-title">
-        Enter the <em>Catalogue Raisonné</em>
+        Explore All <em>35 Works</em>
       </h2>
       <a href="projects.html" class="pill-btn large" style="background: var(--ink-ivory); color: var(--bg-obsidian); border-color: var(--ink-ivory);">
-        View All 35 Works ⟶
+        View All Works ⟶
       </a>
     </div>
   </section>
@@ -251,39 +284,40 @@
           <span class="brand-name">SANDMAGIC</span>
         </div>
         <p class="footer-tagline">
-          “Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea.”
+          “Drawn in grain, motion, and sand—large enough to be seen from the sky, made to return to nature.”
         </p>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Exhibition</span>
-        <a href="index.html">Sanctuary (Home)</a>
-        <a href="projects.html">Catalogue Raisonné (35)</a>
-        <a href="about.html">The Artist</a>
-        <a href="contact.html">Curatorial Dialogue</a>
+        <span class="footer-heading">Navigation</span>
+        <a href="index.html">Home</a>
+        <a href="projects.html">All Works (35)</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Landmark Plates</span>
-        <a href="projects.html?work=firehorse">№ 01 — The Fire Horse (2025)</a>
-        <a href="projects.html?work=droplet-2023">№ 02 — A Drop in the Sea (2023)</a>
-        <a href="projects.html?work=atlas-2009">№ 03 — Project Atlas (530m)</a>
-        <a href="projects.html?work=act-as-one-2021">№ 11 — Act As One (Kinetic)</a>
+        <span class="footer-heading">Highlights</span>
+        <a href="projects.html?work=firehorse">The Fire Horse (2025)</a>
+        <a href="projects.html?work=droplet-2023">A Drop in the Sea (2023)</a>
+        <a href="projects.html?work=atlas-2009">Project Atlas (2009)</a>
+        <a href="projects.html?work=act-as-one-2021">Act As One (2021)</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Studio Remko Delfgaauw</span>
+        <span class="footer-heading">Remko &amp; René</span>
         <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
         <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
-        <span class="footer-address">Zierikzee & Brouwersdam<br>Zeeland, The Netherlands</span>
+        <span class="footer-address">Zierikzee &amp; Brouwersdam<br>Zeeland, The Netherlands</span>
       </div>
     </div>
 
     <div class="container-wide footer-bottom">
-      <span>© 1997–2026 Remko Delfgaauw · Sandmagic Archive</span>
-      <span>Zero Permanent Footprint</span>
+      <span>© 1997–2026 Remko Delfgaauw &amp; René Bosma · Sandmagic</span>
     </div>
   </footer>
 
+  <script type="module" src="nav.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

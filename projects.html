@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catalogue Raisonné (1997–2026) — SANDMAGIC by Remko Delfgaauw</title>
-  <meta name="description" content="Complete exhibition archive of 35 monumental beach drawings, crop circles, and living kinetic animations by 2-time Guinness World Record artist Remko Delfgaauw.">
+  <title>All Works (1997–2026) — SANDMAGIC by Remko &amp; René</title>
+  <meta name="description" content="Complete archive of 35 large-scale crop circles, living animations, and beach drawings by 2-time Guinness World Record creators Remko Delfgaauw and René Bosma.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <!-- Minimalist Museum Header -->
+  <!-- Header -->
   <header class="site-header">
     <a href="index.html" class="brand">
       <span class="brand-glyph">✦</span>
@@ -20,27 +20,60 @@
     </a>
 
     <nav class="nav-links">
-      <a href="index.html">Sanctuary</a>
-      <a href="projects.html" class="active">Exhibition</a>
-      <a href="about.html">The Artist</a>
-      <a href="contact.html">Dialogue</a>
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="header-meta">
-      <span>Catalogue Raisonné · 1997—2026</span>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteDropdown">
+      <span class="nav-toggle-text">Menu</span>
+      <span class="nav-toggle-burger" aria-hidden="true">
+        <span class="burger-line line-1"></span>
+        <span class="burger-line line-2"></span>
+      </span>
+    </button>
+
+    <!-- Responsive Dropdown Menu -->
+    <div class="site-dropdown-menu" id="siteDropdown" aria-hidden="true">
+      <div class="dropdown-inner">
+        <nav class="dropdown-nav-list" aria-label="Mobile navigation">
+          <a href="index.html" class="dropdown-link" data-page="index">
+            <span class="dropdown-title">Home</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="projects.html" class="dropdown-link active" data-page="projects">
+            <span class="dropdown-title">Works</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="about.html" class="dropdown-link" data-page="about">
+            <span class="dropdown-title">About</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+
+          <a href="contact.html" class="dropdown-link" data-page="contact">
+            <span class="dropdown-title">Contact</span>
+            <span class="dropdown-arrow">⟶</span>
+          </a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Exhibition Header -->
+  <div class="site-dropdown-backdrop" id="dropdownBackdrop" aria-hidden="true"></div>
+
+  <!-- Header Section -->
   <section class="exhibition-header">
     <div class="container-wide">
       <div class="exhibition-header-top">
         <div>
-          <div class="section-label">Catalogue Raisonné · 1997—2026</div>
-          <h1 class="section-heading" style="margin-bottom: 0;">Monumental Ephemera</h1>
+          <div class="section-label">1997 — 2026</div>
+          <h1 class="section-heading" style="margin-bottom: 0;">Works in Sand & Field</h1>
         </div>
         <p class="section-subheading" style="max-width: 520px;">
-          Thirty-five earthworks, tidal drawings, and living kinetic formations etched into the planet and surrendered to the sea.
+          Thirty-five beach drawings, crop circles, and human animations made over nearly three decades.
         </p>
       </div>
 
@@ -50,38 +83,38 @@
             All Works <sup id="countAll">35</sup>
           </button>
           <button class="filter-tab" data-filter="Beach Art">
-            Tidal Drawings <sup id="countBeach">23</sup>
+            Beach Art <sup id="countBeach">23</sup>
           </button>
           <button class="filter-tab" data-filter="Crop Circles">
-            Crop Formations <sup id="countCrop">10</sup>
+            Crop Circles <sup id="countCrop">10</sup>
           </button>
           <button class="filter-tab" data-filter="Living Animations">
-            Living Kinetic <sup id="countAnim">2</sup>
+            Living Animations <sup id="countAnim">2</sup>
           </button>
         </div>
 
-        <div class="view-mode-toggle" role="group" aria-label="Exhibition View Mode">
+        <div class="view-mode-toggle" role="group" aria-label="View Mode">
           <button class="mode-btn active" id="btnModeGallery" onclick="setViewMode('gallery')">
-            Gallery Plates
+            Gallery
           </button>
           <button class="mode-btn" id="btnModeIndex" onclick="setViewMode('index')">
-            Archival Index
+            List
           </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Main Exhibition Space -->
+  <!-- Main Gallery Space -->
   <main class="exhibition-section" style="padding-top: 5.5rem;">
     <div class="container-wide">
 
-      <!-- Mode 1: Monumental Gallery Plates (Asymmetric 12-Col + Diptychs) -->
+      <!-- Mode 1: Gallery -->
       <div id="exhibitionStream" class="exhibition-stream">
         <!-- Populated dynamically from projects_data.json -->
       </div>
 
-      <!-- Mode 2: Archival Index Table with Floating Cursor Preview -->
+      <!-- Mode 2: List Table with Hover Preview -->
       <div id="archivalIndexList" class="archival-index-list">
         <!-- Populated dynamically from projects_data.json -->
       </div>
@@ -89,25 +122,28 @@
     </div>
   </main>
 
-  <!-- Floating Preview for Archival Index Mode -->
+  <!-- Floating Preview for List Mode -->
   <div id="indexHoverPreview" class="index-hover-preview">
     <img id="indexHoverImg" src="" alt="">
   </div>
 
-  <!-- Full-Viewport Obsidian Viewing Room (Lightbox) -->
-  <div id="viewingRoom" class="viewing-room" role="dialog" aria-modal="true" onclick="if(event.target === this) closeViewingRoom()">
+  <!-- Lightbox Modal -->
+  <div id="viewingRoom" class="viewing-room" role="dialog" aria-modal="true" data-lenis-prevent onclick="if(event.target === this) closeViewingRoom()">
     <div class="vr-top-bar">
-      <div id="vrCatalogTag" class="vr-catalog-tag">ARCHIVE № 01 / 35</div>
+      <div id="vrCatalogTag" class="vr-catalog-tag"></div>
       <div id="vrPlateSwitcher" class="vr-plate-switcher"></div>
       <div class="vr-controls">
-        <button class="vr-icon-btn" id="vrZoomBtn" onclick="toggleZoom()">+ Inspect</button>
-        <button class="vr-icon-btn" onclick="closeViewingRoom()">ESC · Close</button>
+        <button class="vr-icon-btn" id="vrZoomBtn" onclick="toggleZoom()">+ Zoom</button>
+        <button class="vr-icon-btn" onclick="closeViewingRoom()">Close</button>
       </div>
     </div>
 
     <div class="vr-stage" onclick="if(event.target === this) closeViewingRoom()">
       <button class="vr-nav-arrow prev" onclick="stepArtwork(-1)" aria-label="Previous Artwork">← Prev</button>
       <img id="vrMainImg" src="" alt="" class="vr-main-img" onclick="toggleZoom()">
+      <div id="vrVideoWrap" class="vr-video-container">
+        <iframe id="vrVideoIframe" src="" title="Sandmagic Project Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
       <button class="vr-nav-arrow next" onclick="stepArtwork(1)" aria-label="Next Artwork">Next →</button>
     </div>
 
@@ -132,37 +168,36 @@
           <span class="brand-name">SANDMAGIC</span>
         </div>
         <p class="footer-tagline">
-          “Scale so vast it can only be witnessed from the heavens. Beauty so transient it is surrendered to the sea.”
+          “Drawn in grain, motion, and sand—large enough to be seen from the sky, made to return to nature.”
         </p>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Exhibition</span>
-        <a href="index.html">Sanctuary (Home)</a>
-        <a href="projects.html">Catalogue Raisonné (35)</a>
-        <a href="about.html">The Artist</a>
-        <a href="contact.html">Curatorial Dialogue</a>
+        <span class="footer-heading">Navigation</span>
+        <a href="index.html">Home</a>
+        <a href="projects.html">All Works (35)</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Landmark Plates</span>
-        <a href="projects.html?work=firehorse">№ 01 — The Fire Horse (2025)</a>
-        <a href="projects.html?work=droplet-2023">№ 02 — A Drop in the Sea (2023)</a>
-        <a href="projects.html?work=atlas-2009">№ 03 — Project Atlas (530m)</a>
-        <a href="projects.html?work=act-as-one-2021">№ 11 — Act As One (Kinetic)</a>
+        <span class="footer-heading">Highlights</span>
+        <a href="projects.html?work=firehorse">The Fire Horse (2025)</a>
+        <a href="projects.html?work=droplet-2023">A Drop in the Sea (2023)</a>
+        <a href="projects.html?work=atlas-2009">Project Atlas (2009)</a>
+        <a href="projects.html?work=act-as-one-2021">Act As One (2021)</a>
       </div>
 
       <div class="footer-nav-col">
-        <span class="footer-heading">Studio Remko Delfgaauw</span>
+        <span class="footer-heading">Remko &amp; René</span>
         <a href="mailto:remko.delfgaauw@gmail.com">remko.delfgaauw@gmail.com</a>
         <a href="tel:+31651267457">+31 (0)6 51 267 457</a>
-        <span class="footer-address">Zierikzee & Brouwersdam<br>Zeeland, The Netherlands</span>
+        <span class="footer-address">Zierikzee &amp; Brouwersdam<br>Zeeland, The Netherlands</span>
       </div>
     </div>
 
     <div class="container-wide footer-bottom">
-      <span>© 1997–2026 Remko Delfgaauw · Sandmagic Archive</span>
-      <span>Zero Permanent Footprint</span>
+      <span>© 1997–2026 Remko Delfgaauw &amp; René Bosma · Sandmagic</span>
     </div>
   </footer>
 
@@ -173,6 +208,13 @@
     let currentViewMode = 'gallery';
     let activeProjectIdx = 0;
     let activePlateIdx = 0;
+    let activeMediaType = 'plate'; // 'plate' or 'video'
+    let activeVideoIdx = 0;
+
+    function hasCategory(p, cat) {
+      if (Array.isArray(p.categories) && p.categories.includes(cat)) return true;
+      return p.category === cat;
+    }
 
     async function initExhibition() {
       try {
@@ -200,7 +242,7 @@
         if (workParam) {
           const idx = filteredProjects.findIndex(p => p.slug === workParam);
           if (idx !== -1) {
-            openViewingRoom(idx, 0);
+            openViewingRoom(idx, 0, 'plate');
           }
         }
       } catch (err) {
@@ -209,9 +251,9 @@
     }
 
     function updateCounts() {
-      const beach = allProjects.filter(p => p.category === 'Beach Art').length;
-      const crop = allProjects.filter(p => p.category === 'Crop Circles').length;
-      const anim = allProjects.filter(p => p.category === 'Living Animations').length;
+      const beach = allProjects.filter(p => hasCategory(p, 'Beach Art')).length;
+      const crop = allProjects.filter(p => hasCategory(p, 'Crop Circles')).length;
+      const anim = allProjects.filter(p => hasCategory(p, 'Living Animations')).length;
       document.getElementById('countAll').textContent = allProjects.length;
       document.getElementById('countBeach').textContent = beach;
       document.getElementById('countCrop').textContent = crop;
@@ -224,10 +266,15 @@
       return ['assets/images/crop_atlas.webp'];
     }
 
+    function getProjectVideos(p) {
+      if (Array.isArray(p.youtube_ids) && p.youtube_ids.length > 0) return p.youtube_ids;
+      return [];
+    }
+
     function renderExhibition(filter) {
       filteredProjects = filter === 'all'
         ? [...allProjects]
-        : allProjects.filter(p => p.category === filter);
+        : allProjects.filter(p => hasCategory(p, filter));
 
       const stream = document.getElementById('exhibitionStream');
       const indexList = document.getElementById('archivalIndexList');
@@ -239,6 +286,7 @@
 
       filteredProjects.forEach((p, idx) => {
         const imgs = getProjectImages(p);
+        const vids = getProjectVideos(p);
         const catNo = p.catalogNo || String(idx + 1).padStart(2, '0');
 
         // Determine architectural layout class
@@ -272,61 +320,89 @@
         const article = document.createElement('article');
         article.className = `exhibit-piece layout-${layoutType}`;
 
+        const filmBadgeHTML = vids.length > 0
+          ? `<div class="plate-film-badge" onclick="event.stopPropagation(); openViewingRoom(${idx}, 0, 'video')"><span>▶</span><span>Watch Film${vids.length > 1 ? ` (${vids.length})` : ''}</span></div>`
+          : '';
+
         let stageHTML = '';
         if (layoutType === 'diptych' && imgs.length >= 2) {
           stageHTML = `
             <div class="exhibit-diptych-grid">
-              <div class="plate-frame" onclick="openViewingRoom(${idx}, 0)">
-                <img src="${imgs[0]}" alt="${p.title} — Plate I" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
-                <span class="plate-hover-badge">Plate I · Inspect ↗</span>
+              <div class="plate-frame" onclick="openViewingRoom(${idx}, 0, 'plate')">
+                <img src="${imgs[0]}" alt="${p.title} — Photo 1" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
+                ${filmBadgeHTML}
               </div>
-              <div class="plate-frame" onclick="openViewingRoom(${idx}, 1)">
-                <img src="${imgs[1]}" alt="${p.title} — Plate II" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
-                <span class="plate-hover-badge">Plate II · Inspect ↗</span>
+              <div class="plate-frame" onclick="openViewingRoom(${idx}, 1, 'plate')">
+                <img src="${imgs[1]}" alt="${p.title} — Photo 2" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
               </div>
             </div>
           `;
         } else {
           stageHTML = `
-            <div class="exhibit-stage" onclick="openViewingRoom(${idx}, 0)">
+            <div class="exhibit-stage" onclick="openViewingRoom(${idx}, 0, 'plate')">
               <div class="plate-frame">
                 <img src="${imgs[0]}" alt="${p.title}" loading="${idx < 2 ? 'eager' : 'lazy'}" class="plate-img">
-                <span class="plate-hover-badge">Enter Viewing Room ↗</span>
+                ${filmBadgeHTML}
               </div>
+            </div>
+          `;
+        }
+
+        // Build complete media strip for all photos and videos belonging to this project
+        let mediaStripHTML = '';
+        if (imgs.length > 1 || vids.length > 0) {
+          const thumbsHTML = imgs.map((imgSrc, imgIdx) => `
+            <button type="button" class="exhibit-thumb-btn" onclick="openViewingRoom(${idx}, ${imgIdx}, 'plate')" title="${p.title} — Photo ${imgIdx + 1} of ${imgs.length}">
+              <img src="${imgSrc}" alt="${p.title} — Photo ${imgIdx + 1}" loading="lazy">
+              <span class="exhibit-thumb-num">${imgIdx + 1}</span>
+            </button>
+          `).join('');
+
+          const filmsHTML = vids.map((vidId, vIdx) => `
+            <button type="button" class="exhibit-film-btn" onclick="openViewingRoom(${idx}, ${vIdx}, 'video')" title="Play video for ${p.title}">
+              <span>▶</span>
+              <span>${vids.length > 1 ? `Watch Film ${vIdx + 1}` : 'Watch Film'}</span>
+            </button>
+          `).join('');
+
+          mediaStripHTML = `
+            <div class="exhibit-media-strip">
+              <div class="exhibit-thumbs-row">${thumbsHTML}</div>
+              ${vids.length > 0 ? `<div class="exhibit-films-row">${filmsHTML}</div>` : ''}
             </div>
           `;
         }
 
         article.innerHTML = `
           ${stageHTML}
-          <div class="museum-placard" onclick="openViewingRoom(${idx}, 0)">
+          ${mediaStripHTML}
+          <div class="museum-placard" onclick="openViewingRoom(${idx}, 0, 'plate')">
             <div class="placard-left">
-              <span class="placard-no">№ ${catNo}</span>
               <h2 class="placard-title">${p.title}</h2>
               ${p.whisper ? `<p class="placard-whisper">${p.whisper}</p>` : ''}
             </div>
             <div class="placard-right">
-              <span class="placard-loc">${p.location || 'Zeeland'} · ${p.year || 'Archive'}</span>
-              <span class="placard-specs">${p.dimensions || p.category}</span>
+              <span class="placard-loc">${p.location || 'Zeeland'} · ${p.year || ''}</span>
+              <span class="placard-specs">${p.dimensions || p.category} · ${imgs.length} ${imgs.length === 1 ? 'Photo' : 'Photos'}${vids.length > 0 ? ` · ${vids.length} ${vids.length === 1 ? 'Film' : 'Films'}` : ''}</span>
             </div>
           </div>
         `;
         stream.appendChild(article);
 
-        // 2. Build Archival Index Row
+        // 2. Build List Row
         const row = document.createElement('div');
         row.className = 'index-row';
-        row.onclick = () => openViewingRoom(idx, 0);
+        row.onclick = () => openViewingRoom(idx, 0, 'plate');
         row.onmouseenter = () => showIndexPreview(imgs[0]);
         row.onmouseleave = () => hideIndexPreview();
 
         row.innerHTML = `
-          <span class="idx-no">№ ${catNo}</span>
+          <span class="idx-no">${catNo}</span>
           <span class="idx-year">${p.year || '—'}</span>
           <span class="idx-title">${p.title}</span>
           <span class="idx-location">${p.location || 'Netherlands'}</span>
-          <span class="idx-medium">${p.dimensions || p.category}</span>
-          <span class="idx-action">${imgs.length > 1 ? `${imgs.length} Plates ↗` : 'Plate ↗'}</span>
+          <span class="idx-medium">${p.dimensions || p.category} (${imgs.length}p${vids.length > 0 ? ` · ▶ ${vids.length}v` : ''})</span>
+          <span class="idx-action">View ↗</span>
         `;
         indexList.appendChild(row);
       });
@@ -365,14 +441,27 @@
       box.classList.remove('visible');
     }
 
+    function stopViewingRoomVideo() {
+      const videoWrap = document.getElementById('vrVideoWrap');
+      const videoIframe = document.getElementById('vrVideoIframe');
+      if (videoWrap) videoWrap.classList.remove('active');
+      if (videoIframe && videoIframe.src) videoIframe.src = '';
+    }
+
     // Viewing Room Lightbox
-    function openViewingRoom(projectIdx, plateIdx = 0) {
+    function openViewingRoom(projectIdx, mediaIdx = 0, mediaType = 'plate') {
       activeProjectIdx = projectIdx;
-      activePlateIdx = plateIdx;
+      activeMediaType = mediaType;
+      if (mediaType === 'video') {
+        activeVideoIdx = mediaIdx;
+      } else {
+        activePlateIdx = mediaIdx;
+      }
       updateViewingRoomContent();
       const room = document.getElementById('viewingRoom');
       room.classList.add('open');
       document.body.style.overflow = 'hidden';
+      if (window.lenis) window.lenis.stop();
     }
 
     function updateViewingRoomContent() {
@@ -380,35 +469,69 @@
       if (!p) return;
 
       const imgs = getProjectImages(p);
+      const vids = getProjectVideos(p);
       if (activePlateIdx >= imgs.length) activePlateIdx = 0;
+      if (activeVideoIdx >= vids.length) activeVideoIdx = 0;
+      if (activeMediaType === 'video' && vids.length === 0) activeMediaType = 'plate';
 
       const mainImg = document.getElementById('vrMainImg');
-      mainImg.classList.remove('zoomed');
-      document.getElementById('vrZoomBtn').textContent = '+ Inspect';
-      mainImg.src = imgs[activePlateIdx];
-      mainImg.alt = p.title;
+      const videoWrap = document.getElementById('vrVideoWrap');
+      const videoIframe = document.getElementById('vrVideoIframe');
+      const zoomBtn = document.getElementById('vrZoomBtn');
 
-      const catNo = p.catalogNo || String(activeProjectIdx + 1).padStart(2, '0');
+      mainImg.classList.remove('zoomed');
+      zoomBtn.textContent = '+ Zoom';
+
+      if (activeMediaType === 'video' && vids.length > 0) {
+        const vidId = vids[activeVideoIdx] || vids[0];
+        mainImg.style.display = 'none';
+        zoomBtn.style.display = 'none';
+        videoWrap.classList.add('active');
+        const embedUrl = `https://www.youtube.com/embed/${vidId}?autoplay=1&rel=0`;
+        if (videoIframe.src !== embedUrl) {
+          videoIframe.src = embedUrl;
+        }
+      } else {
+        stopViewingRoomVideo();
+        mainImg.style.display = '';
+        zoomBtn.style.display = '';
+        mainImg.src = imgs[activePlateIdx];
+        mainImg.alt = `${p.title} — Photo ${activePlateIdx + 1}`;
+      }
+
       document.getElementById('vrCatalogTag').textContent =
-        `ARCHIVE № ${catNo} — ${activeProjectIdx + 1} OF ${filteredProjects.length}`;
+        `${activeProjectIdx + 1} / ${filteredProjects.length}`;
       document.getElementById('vrTitle').textContent = p.title;
       document.getElementById('vrWhisper').textContent = p.whisper || '';
       document.getElementById('vrLocationYear').textContent =
-        `${p.location || 'Zeeland'} · ${p.year || 'Archive'}`;
+        `${p.location || 'Zeeland'} · ${p.year || ''}`;
       document.getElementById('vrDimensions').textContent =
         p.dimensions || p.category;
 
       const switcher = document.getElementById('vrPlateSwitcher');
       switcher.innerHTML = '';
-      if (imgs.length > 1) {
-        const romans = ['I', 'II', 'III', 'IV'];
+      if (imgs.length > 1 || vids.length > 0) {
         imgs.forEach((imgUrl, i) => {
           const btn = document.createElement('button');
-          btn.className = 'vr-plate-btn' + (i === activePlateIdx ? ' active' : '');
-          btn.textContent = `Plate ${romans[i] || i + 1}`;
+          btn.className = 'vr-plate-btn' + (activeMediaType === 'plate' && i === activePlateIdx ? ' active' : '');
+          btn.textContent = `Photo ${i + 1}`;
           btn.onclick = (e) => {
             e.stopPropagation();
+            activeMediaType = 'plate';
             activePlateIdx = i;
+            updateViewingRoomContent();
+          };
+          switcher.appendChild(btn);
+        });
+
+        vids.forEach((vidId, vIdx) => {
+          const btn = document.createElement('button');
+          btn.className = 'vr-plate-btn vr-film-btn' + (activeMediaType === 'video' && vIdx === activeVideoIdx ? ' active' : '');
+          btn.textContent = vids.length > 1 ? `▶ Video ${vIdx + 1}` : '▶ Video';
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            activeMediaType = 'video';
+            activeVideoIdx = vIdx;
             updateViewingRoomContent();
           };
           switcher.appendChild(btn);
@@ -418,23 +541,29 @@
 
     function stepArtwork(delta) {
       if (!filteredProjects.length) return;
+      stopViewingRoomVideo();
       activeProjectIdx = (activeProjectIdx + delta + filteredProjects.length) % filteredProjects.length;
       activePlateIdx = 0;
+      activeVideoIdx = 0;
+      activeMediaType = 'plate';
       updateViewingRoomContent();
     }
 
     function toggleZoom() {
+      if (activeMediaType === 'video') return;
       const img = document.getElementById('vrMainImg');
       const btn = document.getElementById('vrZoomBtn');
       const isZoomed = img.classList.toggle('zoomed');
-      btn.textContent = isZoomed ? '− Reset' : '+ Inspect';
+      btn.textContent = isZoomed ? '− Reset' : '+ Zoom';
     }
 
     function closeViewingRoom() {
+      stopViewingRoomVideo();
       const room = document.getElementById('viewingRoom');
       room.classList.remove('open');
       document.getElementById('vrMainImg').classList.remove('zoomed');
       document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     }
 
     // Filter tabs binding
@@ -458,5 +587,7 @@
 
     initExhibition();
   </script>
+  <script type="module" src="nav.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
